@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ARCA • Painel de investimentos v5.4</title>
+<style>
+:root{--bg:#0b1220;--panel:#121d30;--panel2:#17243a;--line:#263650;--txt:#edf3fb;--muted:#9eafc5;--accent:#78b7ff;--green:#72d6ae;--amber:#f3c778}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(140deg,#0b1220,#101b2d);color:var(--txt);font:15px Inter,system-ui,Segoe UI,Arial,sans-serif}
+header{padding:25px max(22px,calc((100vw - 1180px)/2));border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font-weight:800;letter-spacing:.12em;color:var(--accent);font-size:13px}.sub{color:var(--muted);font-size:13px;margin-top:5px}
+main{max-width:1180px;margin:26px auto;padding:0 20px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+select,button,.filelabel{background:var(--panel2);color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:10px 13px;font:inherit}
+button,.filelabel{cursor:pointer}button.primary{background:#1d4775;border-color:#3976b7}.filelabel input{display:none}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.card,.panel{background:linear-gradient(160deg,var(--panel),#101a2b);border:1px solid var(--line);border-radius:15px;padding:18px}
+.kicker{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em}.value{font-size:25px;font-weight:750;margin-top:9px}.hint{font-size:12px;color:var(--muted);margin-top:7px}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:22px 0 14px}.tab{border-radius:9px;padding:9px 13px;background:transparent}.tab.active{background:#1c3555;border-color:#416b9b}
+.two{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}.panel h3{font-size:15px;margin:0 0 17px}.barrow{display:grid;grid-template-columns:120px 1fr 105px;gap:10px;align-items:center;margin:13px 0;font-size:13px}.track{height:9px;background:#24334a;border-radius:20px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#4c91d5,#79c6df);border-radius:20px}
+input,select{font:inherit} .quote-input{padding:8px;border-radius:7px;background:#17243a;color:#edf3fb;border:1px solid #263650;max-width:100%} table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:12px 9px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.note{border:1px solid #6c552b;background:#2a2418;color:#f6dba8;padding:13px 15px;border-radius:11px;margin:14px 0;font-size:13px;line-height:1.5}
+.divider{height:1px;background:var(--line);margin:18px 0}.pie-wrap{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin:6px 0 18px}.pie{width:176px;height:176px;border-radius:50%;background:#24334a;flex:0 0 auto;position:relative}.pie:after{content:"";position:absolute;inset:34px;background:var(--panel);border-radius:50%}.legend{display:grid;gap:9px;font-size:12px;min-width:145px}.legend-row{display:flex;align-items:center;gap:8px}.swatch{width:10px;height:10px;border-radius:3px;display:inline-block;flex:0 0 auto}.intl-total{font-size:22px;font-weight:750;margin:4px 0 14px}.good{color:var(--green)}.muted{color:var(--muted)}.section{display:none}.section.active{display:block}.empty{padding:30px;text-align:center;color:var(--muted)}
+small.tag{color:#a9c9ee;border:1px solid #35577e;border-radius:20px;padding:4px 8px}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}}@media(max-width:520px){.grid{grid-template-columns:1fr}.barrow{grid-template-columns:90px 1fr 85px;font-size:12px}.value{font-size:22px}}
+</style></head><body>
+<header><div><div class="brand">ARCA · INVESTIMENTOS</div><div class="sub">Painel patrimonial • protótipo local v5.2</div></div><div class="sub">Base: planilha importada em 21/11/2026</div></header>
+<main>
+<div class="toolbar"><label class="kicker" for="owner">Carteira</label><select id="owner"><option value="all">Consolidado (último registro de cada titular)</option><option value="Piero">Piero</option><option value="Dri">Dri</option></select><button class="primary" id="chooseFile">Selecionar Excel ou CSV</button><input type="file" id="file" accept=".xlsx,.xls,.csv" style="display:none"><button class="primary" id="refresh">Atualizar visão</button><button id="export">Exportar snapshots CSV</button></div>
+<div id="dateWarning" class="note"></div>
+<div class="grid" id="kpis"></div>
+<div class="tabs"><button class="tab active" data-tab="overview">Visão geral</button><button class="tab" data-tab="history">Histórico</button><button class="tab" data-tab="details">Posições</button><button class="tab" data-tab="import">Importação</button><button class="tab" data-tab="quotes">Cotações</button></div>
+<section id="overview" class="section active"><div class="two"><div class="panel"><h3>Distribuição por classe</h3><div class="pie-wrap"><div id="pie" class="pie"></div><div id="pieLegend" class="legend"></div></div><div id="bars"></div></div><div class="panel"><h3>Resumo da carteira</h3><div id="summary"></div></div></div><div class="panel" style="margin-top:14px"><h3>Investimentos internacionais · visão sintética</h3><div id="intlSummary"></div><div id="intlSelection" class="hint" style="margin-top:12px">Clique em uma fatia do gráfico ou em uma legenda para detalhar o ativo por titular e plataforma.</div><p class="hint">Valores convertidos para BRL conforme os valores e cotações registrados na planilha. Quando a planilha agrupa os investimentos, o painel preserva esse agrupamento.</p><div class="divider"></div><h3 style="margin-top:18px">Composição da carteira internacional</h3><div class="pie-wrap"><div id="intlPie" class="pie"></div><div id="intlPieLegend" class="legend"></div></div></div></section>
+<section id="history" class="section"><div class="panel"><h3>Controle dos snapshots</h3><p class="muted">Os snapshots são preservados como registros históricos. Se algum for importado incorretamente, exclua-o e importe novamente o arquivo corrigido. As importações e exclusões ficam registradas na auditoria.</p><div id="historyTable"></div><p class="hint">Snapshots são fotografias do patrimônio em datas específicas. Variações entre datas não são tratadas automaticamente como rentabilidade. Registros marcados como teste ficam identificados e continuam fora de qualquer cálculo de rentabilidade.</p></div><div class="panel" style="margin-top:14px"><h3>Histórico de alterações</h3><div id="auditTable"></div></div></section>
+<section id="details" class="section"><div class="panel"><h3>Posições e instituições</h3><div id="detailTable"></div><p class="hint">Quando a planilha não identifica instituição ou ativo individual, o dado permanece agrupado e sinalizado como não detalhado.</p></div></section>
+<section id="import" class="section"><div class="panel"><h3>Prévia de importação</h3><p class="muted">Selecione uma planilha Excel (abas ARCA Piero/ARCA Dri) ou um CSV exportado pelo dashboard. Confira a prévia antes de incorporar os snapshots.</p><div id="importStatus" class="empty">Selecione sua planilha Excel ou CSV. Os dados serão analisados antes de qualquer alteração.</div><div id="preview"></div><div id="importActions" style="display:none;margin-top:14px"><button class="primary" id="confirmImport">Confirmar importação dos novos snapshots</button> <button id="cancelImport">Cancelar</button></div></div></section>
+
+<section id="quotes" class="section">
+ <div class="panel">
+  <h3>Central de cotações</h3>
+  <p class="muted">Atualização sob demanda. As cotações não alteram os snapshots patrimoniais; elas alimentam o radar e poderão ser vinculadas às posições detalhadas quando cadastrarmos os ativos individualmente.</p>
+  <div class="grid" style="grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+   <div><label class="kicker" for="brapiKey">Chave gratuita brapi (B3)</label><input id="brapiKey" type="password" placeholder="Cole sua chave brapi" style="width:100%;padding:10px;border-radius:8px;background:#17243a;color:#edf3fb;border:1px solid #263650"><small class="hint">Necessária para a maioria das ações e FIIs. A chave fica salva somente neste navegador.</small></div>
+   <div><label class="kicker" for="cgKey">Chave CoinGecko Demo (opcional)</label><input id="cgKey" type="password" placeholder="Cole sua chave CoinGecko" style="width:100%;padding:10px;border-radius:8px;background:#17243a;color:#edf3fb;border:1px solid #263650"><small class="hint">A API pública pode funcionar sem chave, mas tem limites mais restritos.</small></div>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="primary" id="saveQuoteKeys">Salvar chaves neste navegador</button><button class="primary" id="updateQuotes">Atualizar cotações</button><button id="addQuote">Adicionar ativo ao radar</button></div>
+  <div id="quoteStatus" class="note" style="margin-top:12px">Nenhuma consulta executada nesta sessão.</div>
+ </div>
+ <div class="panel" style="margin-top:14px"><h3>Radar de mercado</h3><div id="quoteTable"><p class="muted">Clique em “Atualizar cotações” para consultar as fontes disponíveis.</p></div></div>
+ <div class="panel" style="margin-top:14px"><h3>ETFs irlandeses para acompanhamento</h3><p class="muted">Lista inicial de referência. O ticker varia conforme a bolsa e a moeda da listagem; ISIN identifica o fundo/compartimento. Os exemplos abaixo são fundos domiciliados na Irlanda.</p><div id="irishEtfs"></div></div>
+ <p class="hint">Limitações importantes: brapi gratuita tem limite mensal e atualização não em tempo real; Frankfurter fornece taxas de referência diárias; CoinGecko tem limites por plano. A consulta de ações/ETFs internacionais usa endpoint não oficial do Yahoo Finance e pode falhar por bloqueio CORS ou mudanças do fornecedor. Quando isso ocorrer, a solução robusta é um pequeno backend/proxy — sem expor chaves no navegador.</p>
+</section>
+
+<p class="hint">Protótipo local: importação Excel/CSV com prévia e detecção de duplicidades. Os dados importados ficam salvos neste navegador; ainda não há servidor, login nem sincronização entre dispositivos. Cotações de ETFs vêm do arquivo cotacoes.js, gerado pelo script cotacoes.py.</p>
+</main>
+<script src="cotacoes.js" onerror="void 0"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script>
+const seeded = [];
+let data = structuredClone(seeded);
+try { const saved=localStorage.getItem('arca_snapshots_v1'); if(saved){ const parsed=JSON.parse(saved); if(Array.isArray(parsed)) data=parsed; } } catch(e) {}
+let pendingImport = [];
+let auditLog = [];
+try { const savedLog=localStorage.getItem('arca_audit_v1'); if(savedLog){ const parsedLog=JSON.parse(savedLog); if(Array.isArray(parsedLog)) auditLog=parsedLog; } } catch(e) {}
+function persistData(){
+ localStorage.setItem('arca_snapshots_v1',JSON.stringify(data));
+ localStorage.setItem('arca_audit_v1',JSON.stringify(auditLog));
+}
+function logAction(action, record, extra=''){
+ auditLog.unshift({at:new Date().toISOString(),action,owner:record?.owner||'—',date:record?.date||'—',total:record?.total||0,extra});
+ auditLog=auditLog.slice(0,100);
+}
+const brl = n => new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0}).format(n||0);
+const dateBR = s => new Date(s+'T12:00:00').toLocaleDateString('pt-BR');
+const latest = owner => data.filter(x=>x.owner===owner).sort((a,b)=>b.date.localeCompare(a.date))[0];
+function selected(){let o=document.querySelector('#owner').value;return o==='all'?['Piero','Dri'].map(latest).filter(Boolean):[latest(o)].filter(Boolean)}
+
+function handleHistoryAction(action, owner, date){
+ const index = data.findIndex(item => item.owner === owner && item.date === date);
+ if(index < 0){
+   alert('Não foi possível localizar este snapshot. Atualize a página e tente novamente.');
+   return;
+ }
+ const record = data[index];
+
+ if(action === 'delete'){
+   const approved = window.confirm(
+     `Excluir definitivamente o snapshot de ${owner} em ${dateBR(date)} (${brl(record.total)})?`
+   );
+   if(!approved) return;
+   data.splice(index, 1);
+   if(owner === 'Dri' && date === '2026-06-01'){
+     try { localStorage.setItem('arca_june_test_deleted_v1', '1'); } catch(e) {}
+   }
+   logAction('Snapshot excluído', record, 'Exclusão confirmada pelo usuário');
+ } else if(action === 'toggle-test'){
+   const next = !record.isTest;
+   const approved = window.confirm(
+     `Confirma ${next ? 'marcar como TESTE' : 'marcar como REAL'} o snapshot de ${owner} em ${dateBR(date)}?`
+   );
+   if(!approved) return;
+   record.isTest = next;
+   logAction(next ? 'Marcado como teste' : 'Marcado como real', record);
+ } else {
+   return;
+ }
+
+ try {
+   persistData();
+ } catch(error) {
+   alert('O navegador não permitiu salvar no armazenamento local. A alteração será aplicada nesta sessão, mas pode não permanecer após fechar a página.');
+ }
+ render();
+}
+
+
+function render(){
+ const chosen=selected(), total=chosen.reduce((s,x)=>s+x.total,0), cats={};
+ chosen.forEach(x=>Object.entries(x.categories).forEach(([k,v])=>cats[k]=(cats[k]||0)+v));
+ document.querySelector('#kpis').innerHTML=[
+ ['Patrimônio consolidado',brl(total),chosen.map(x=>x.owner+': '+dateBR(x.date)).join(' · ')],
+ ['Ações',brl(cats['Ações']),total?(cats['Ações']/total*100).toFixed(1)+'% do total':'—'],
+ ['Imóveis / FIIs',brl(cats['Imóveis/FIIs']),total?(cats['Imóveis/FIIs']/total*100).toFixed(1)+'% do total':'—'],
+ ['Renda fixa',brl(cats['Renda fixa']),total?(cats['Renda fixa']/total*100).toFixed(1)+'% do total':'—']
+ ].map(a=>`<div class="card"><div class="kicker">${a[0]}</div><div class="value">${a[1]}</div><div class="hint">${a[2]}</div></div>`).join('');
+ document.querySelector('#bars').innerHTML=Object.entries(cats).map(([k,v])=>`<div class="barrow"><span>${k}</span><div class="track"><div class="fill" style="width:${total?v/total*100:0}%"></div></div><b class="num">${brl(v)}</b></div>`).join('');
+ const palette=['#67a8e8','#79cdb1','#e6b96d','#a58be8','#e4869a','#69c5cf'];
+ let cursor=0, stops=Object.entries(cats).map(([k,v],i)=>{let a=cursor;cursor+=total?v/total*100:0;return `${palette[i%palette.length]} ${a}% ${cursor}%`});
+ document.querySelector('#pie').style.background=stops.length?`conic-gradient(${stops.join(',')})`:'#24334a';
+ document.querySelector('#pieLegend').innerHTML=Object.entries(cats).map(([k,v],i)=>`<div class="legend-row"><i class="swatch" style="background:${palette[i%palette.length]}"></i><span>${k}</span><b style="margin-left:auto">${total?(v/total*100).toFixed(1):'0.0'}%</b></div>`).join('');
+ const intl=chosen.flatMap(x=>x.detail.filter(d=>d[0]==='Internacional'||['BTC','USDC','USD','EUR'].includes(d[0])).map(d=>({owner:x.owner,asset:d[0],institution:d[1],currency:d[2],qty:d[3],unit:d[4],brl:d[2]==='BRL'?d[3]:d[3]*(d[4]||0)})));
+ const intlTotal=intl.reduce((s,r)=>s+r.brl,0);
+ const intlGroups={};
+ intl.forEach(r=>{const key=({BTC:'Bitcoin (BTC)',USDC:'Dólar digital (USDC)',USD:'Dólar (USD)',EUR:'Euro (EUR)',Internacional:'Internacional não detalhado'})[r.asset]||r.asset;intlGroups[key]=(intlGroups[key]||0)+r.brl;});
+ let intlCursor=0;
+ const intlStops=Object.entries(intlGroups).map(([k,v],i)=>{const start=intlCursor;intlCursor+=intlTotal?v/intlTotal*100:0;return `${palette[i%palette.length]} ${start}% ${intlCursor}%`;});
+ document.querySelector('#intlPie').style.background=intlStops.length?`conic-gradient(${intlStops.join(',')})`:'#24334a';
+ document.querySelector('#intlPieLegend').innerHTML=Object.entries(intlGroups).map(([k,v],i)=>`<div class="legend-row intl-legend" data-key="${k}" role="button" tabindex="0" style="cursor:pointer"><i class="swatch" style="background:${palette[i%palette.length]}"></i><span>${k}</span><b style="margin-left:auto">${intlTotal?(v/intlTotal*100).toFixed(1):'0.0'}%</b></div>`).join('')||'<span class="muted">Sem dados internacionais.</span>';
+ const assetKey=r=>({BTC:'Bitcoin (BTC)',USDC:'Dólar digital (USDC)',USD:'Dólar (USD)',EUR:'Euro (EUR)',Internacional:'Internacional não detalhado'})[r.asset]||r.asset;
+ const renderIntlRows=key=>{
+   const subset=key?intl.filter(r=>assetKey(r)===key):intl;
+   const rows=subset.map(r=>`<tr><td>${r.owner}</td><td>${r.asset}</td><td>${r.institution}</td><td class="num">${r.currency==='BRL'?'—':new Intl.NumberFormat('pt-BR',{maximumFractionDigits:4}).format(r.qty)+' '+r.currency}</td><td class="num">${brl(r.brl)}</td></tr>`).join('');
+   const value=subset.reduce((sum,r)=>sum+r.brl,0);
+   document.querySelector('#intlSummary').innerHTML=`<div class="intl-total">${brl(value)}</div><div class="hint" style="margin-bottom:10px">${key?`Detalhamento de ${key}`:'Total internacional nas carteiras selecionadas'}</div><table><thead><tr><th>Titular</th><th>Ativo / grupo</th><th>Plataforma</th><th class="num">Quantidade</th><th class="num">Valor em BRL</th></tr></thead><tbody>${rows||'<tr><td colspan="5">Sem detalhamento disponível.</td></tr>'}</tbody></table>`;
+   document.querySelector('#intlSelection').textContent=key?`Filtro ativo: ${key}. Clique novamente no gráfico ou na legenda para selecionar outro ativo.`:'Exibindo todos os investimentos internacionais. Clique em uma fatia ou legenda para filtrar.';
+ };
+ document.querySelectorAll('.intl-legend').forEach(el=>{const activate=()=>renderIntlRows(el.dataset.key);el.onclick=activate;el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}}});
+ const intlPie=document.querySelector('#intlPie');
+ intlPie.style.cursor='pointer';
+ intlPie.onclick=e=>{
+   const rect=intlPie.getBoundingClientRect(),cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;
+   let angle=(Math.atan2(e.clientY-cy,e.clientX-cx)*180/Math.PI+90+360)%360;
+   let cumulative=0,chosenKey=null;
+   for(const [key,value] of Object.entries(intlGroups)){cumulative+=intlTotal?value/intlTotal*360:0;if(angle<=cumulative){chosenKey=key;break;}}
+   renderIntlRows(chosenKey);
+ };
+ renderIntlRows(null);
+ document.querySelector('#summary').innerHTML=chosen.map(x=>`<div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:10px 0"><span>${x.owner}<br><small class="muted">${dateBR(x.date)}</small></span><b>${brl(x.total)}</b></div>`).join('')+`<p class="hint">Ativos internacionais: ${brl(cats['Internacional']||0)}</p>`;
+ const hist=data.filter(x=>document.querySelector('#owner').value==='all'||x.owner===document.querySelector('#owner').value).sort((a,b)=>a.date.localeCompare(b.date));
+ document.querySelector('#historyTable').innerHTML=`<table><thead><tr><th>Titular</th><th>Data</th><th class="num">Patrimônio</th><th>Identificação</th><th>Ações</th></tr></thead><tbody>${hist.map(x=>`<tr><td>${x.owner}</td><td>${dateBR(x.date)}</td><td class="num">${brl(x.total)}</td><td>${x.isTest?'<small class="tag" style="border-color:#8a6934;color:#f3c778">TESTE</small>':'<small class="tag">Snapshot</small>'}</td><td><button type="button" class="primary" data-history-action="toggle-test" data-owner="${x.owner}" data-date="${x.date}" style="padding:7px 10px;margin:2px">${x.isTest?'Marcar como real':'Marcar como teste'}</button> <button type="button" data-history-action="delete" data-owner="${x.owner}" data-date="${x.date}" style="padding:7px 10px;margin:2px">Excluir</button></td></tr>`).join('')}</tbody></table>`;
+ document.querySelectorAll('#historyTable button[data-history-action]').forEach(button=>{
+   button.onclick = function(){
+     handleHistoryAction(this.dataset.historyAction, this.dataset.owner, this.dataset.date);
+   };
+ });
+ document.querySelector('#auditTable').innerHTML=auditLog.length?`<table><thead><tr><th>Quando</th><th>Ação</th><th>Titular</th><th>Data do snapshot</th><th>Detalhe</th></tr></thead><tbody>${auditLog.map(a=>`<tr><td>${new Date(a.at).toLocaleString('pt-BR')}</td><td>${a.action}</td><td>${a.owner}</td><td>${a.date==='—'?'—':dateBR(a.date)}</td><td>${a.extra||'—'}</td></tr>`).join('')}</tbody></table>`:'<p class="muted">Nenhuma importação ou exclusão registrada nesta versão.</p>';
+ let details=chosen.flatMap(x=>x.detail.map(d=>({owner:x.owner,date:x.date,cat:d[0],institution:d[1],asset:d[2],amount:d[3],unit:d[4]})));
+ document.querySelector('#detailTable').innerHTML=`<table><thead><tr><th>Titular</th><th>Classe / ativo</th><th>Instituição</th><th class="num">Quantidade / valor</th></tr></thead><tbody>${details.map(d=>`<tr><td>${d.owner}</td><td>${d.cat}</td><td>${d.institution}</td><td class="num">${d.asset==='BRL'?brl(d.amount):new Intl.NumberFormat('pt-BR',{maximumFractionDigits:4}).format(d.amount)+' '+d.asset+(d.unit?' × R$ '+new Intl.NumberFormat('pt-BR',{maximumFractionDigits:4}).format(d.unit):'')}</td></tr>`).join('')}</tbody></table>`;
+ let p=latest('Piero'),d=latest('Dri');
+ document.querySelector('#dateWarning').textContent=chosen.length===2&&p&&d&&p.date!==d.date?`Atenção: o consolidado combina snapshots de datas diferentes — Piero ${dateBR(p.date)} e Dri ${dateBR(d.date)}. O total é uma soma dos últimos registros disponíveis, não uma fotografia na mesma data.`:'Datas dos registros selecionados: '+chosen.map(x=>x.owner+' '+dateBR(x.date)).join(' · ');
+ if(!data.length)document.querySelector('#dateWarning').textContent='Nenhum dado ainda. Abra a aba Importação, selecione sua planilha Excel e confirme. Os dados ficam só neste navegador.';
+}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab,.section').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelector('#'+b.dataset.tab).classList.add('active')});
+document.querySelector('#owner').onchange=render;document.querySelector('#refresh').onclick=render;
+document.querySelector('#export').onclick=()=>{let rows=[['titular','data','total_brl','acoes','imoveis_fiis','renda_fixa','internacional','teste'],...data.map(x=>[x.owner,x.date,x.total,x.categories['Ações'],x.categories['Imóveis/FIIs'],x.categories['Renda fixa'],x.categories['Internacional'],x.isTest?'SIM':'NAO'])];let csv=rows.map(r=>r.join(';')).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='snapshots_arca.csv';a.click();URL.revokeObjectURL(a.href)};
+
+function norm(v){return String(v??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toUpperCase();}
+function excelDate(v){
+ if(v instanceof Date && !isNaN(v)) return v.toISOString().slice(0,10);
+ if(typeof v==='number' && v>20000 && v<80000){const d=XLSX.SSF.parse_date_code(v);if(d)return `${d.y}-${String(d.m).padStart(2,'0')}-${String(d.d).padStart(2,'0')}`;}
+ if(typeof v==='string' && /^\d{1,2}[\/.-]\d{1,2}[\/.-]\d{4}$/.test(v)){const a=v.split(/[\/.-]/);return `${a[2]}-${a[1].padStart(2,'0')}-${a[0].padStart(2,'0')}`;}
+ return null;
+}
+function num(v){if(typeof v==='number')return v;if(typeof v==='string'){let t=v.trim().replace(/\./g,'').replace(',','.');let n=Number(t);return Number.isFinite(n)?n:null;}return null;}
+function parseSheet(ws, owner){
+ const rows=XLSX.utils.sheet_to_json(ws,{header:1,raw:true,defval:null});
+ const headings={'ACOES':'Ações','REAL ESTATE':'Imóveis/FIIs','CASH - RENDA FIXA':'Renda fixa','ATIVOS INTERNACIONAIS':'Internacional','TOTAL CARTEIRA':'TOTAL'};
+ const dateStarts=[];
+ for(let i=0;i<rows.length;i++){
+   const d=excelDate(rows[i]?.[0]);
+   if(!d) continue;
+   const look=rows.slice(i,Math.min(i+3,rows.length)).some(r=>Object.keys(headings).some(h=>norm(r?.[1])===h));
+   if(look) dateStarts.push({i,date:d});
+ }
+ const out=[];
+ for(let k=0;k<dateStarts.length;k++){
+   const start=dateStarts[k].i, end=k+1<dateStarts.length?dateStarts[k+1].i:rows.length;
+   let categories={}, detail=[], total=null, current=null;
+   for(let r=start;r<end;r++){
+     const label=norm(rows[r]?.[1]);
+     if(headings[label]){
+       current=headings[label];
+       if(current==='TOTAL'){total=num(rows[r]?.[2]);current=null;continue;}
+       categories[current]=0; continue;
+     }
+     if(!current) continue;
+     const a=rows[r]||[], labelA=String(a[0]??'').trim(), b=num(a[1]), qty=num(a[2]), quote=num(a[3]);
+     if(b===null || b===0) continue;
+     let institution=labelA||'Instituição não identificada';
+     let asset=current, currency='BRL', amount=b, unit=null;
+     if(current==='Internacional'){
+       const tag=norm(labelA);
+       if(tag.includes('BTC')){asset='BTC';institution=tag.includes('BIPA')?'Bipa':'Coinbase';currency='BTC';}
+       else if(tag.includes('USDC')){asset='USDC';institution='Coinbase';currency='USDC';}
+       else if(tag.includes('AVENUE')||tag==='$'){asset='USD';institution=tag.includes('AVENUE')?'Avenue':'Não detalhado';currency='USD';}
+       else if(tag.includes('BROKERS')||tag.includes('€')){asset='EUR';institution='Interactive Brokers';currency='EUR';}
+       else if(tag==='B'||tag==='BITCOIN'){asset='BTC';institution='Não detalhado';currency='BTC';}
+       else if(tag==='$'||tag==='USD'){asset='USD';institution='Não detalhado';currency='USD';}
+       if(qty!==null && quote!==null && qty>0 && quote>0){amount=qty;unit=quote;}
+       else {asset=tag==='B'?'Bitcoin não detalhado':tag==='$'?'Moeda estrangeira não detalhada':'Internacional não detalhado';currency='BRL';}
+     } else if(current==='Ações' && institution==='Instituição não identificada'){
+       institution='Não identificada';
+     } else {
+       const aliases={'R':'Rico','RICO':'Rico','IN':'Inter','INTER':'Inter','N':'Nubank','NUBANK':'Nubank','IT':'Itaú','ITAÚ':'Itaú','ITAU':'Itaú'};
+       institution=aliases[norm(labelA)]||institution;
+     }
+     categories[current]+=unit!==null?amount*unit:amount;
+     detail.push([asset,institution,currency,amount,unit]);
+   }
+   if(total===null) total=Object.values(categories).reduce((a,b)=>a+b,0);
+   if(total>0) out.push({owner,date:dateStarts[k].date,total,categories,detail});
+ }
+ return out;
+}
+function money(n){return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:2}).format(n||0);}
+document.querySelector('#chooseFile').onclick=()=>document.querySelector('#file').click();
+document.querySelector('#file').onchange=async e=>{
+ const f=e.target.files[0]; if(!f)return;
+ pendingImport=[];
+ const status=document.querySelector('#importStatus'), preview=document.querySelector('#preview'), actions=document.querySelector('#importActions');
+ actions.style.display='none'; preview.innerHTML='';
+ try{
+   let parsed=[];
+   if(f.name.toLowerCase().endsWith('.csv')){
+     const textFile=(await f.text()).replace(/^\uFEFF/,'');
+     const lines=textFile.split(/\r?\n/).filter(line=>line.trim());
+     if(lines.length<2) throw new Error('O CSV está vazio ou não contém linhas de dados.');
+     const delim=lines[0].includes(';')?';':',';
+     const headers=lines[0].split(delim).map(h=>norm(h));
+     const idx={owner:headers.indexOf('TITULAR'),date:headers.indexOf('DATA'),total:headers.indexOf('TOTAL_BRL'),acoes:headers.indexOf('ACOES'),imoveis:headers.indexOf('IMOVEIS_FIIS'),fixed:headers.indexOf('RENDA_FIXA'),intl:headers.indexOf('INTERNACIONAL'),test:headers.indexOf('TESTE')};
+     if(['owner','date','total','acoes','imoveis','fixed','intl'].some(k=>idx[k]<0)) throw new Error('Formato CSV não reconhecido. Use o CSV exportado pelo dashboard ARCA.');
+     const csvNum=v=>{let t=String(v??'').trim();if(!t)return 0;if(t.includes(',')&&!t.includes('.'))t=t.replace(',','.');else t=t.replace(/\.(?=\d{3}(?:\D|$))/g,'');const n=Number(t);return Number.isFinite(n)?n:null;};
+     for(let i=1;i<lines.length;i++){
+       const c=lines[i].split(delim); const owner=String(c[idx.owner]||'').trim();
+       let date=String(c[idx.date]||'').trim(); if(/^\d{2}\/\d{2}\/\d{4}$/.test(date)){const a=date.split('/');date=`${a[2]}-${a[1]}-${a[0]}`;}
+       const vals={ 'Ações':csvNum(c[idx.acoes]),'Imóveis/FIIs':csvNum(c[idx.imoveis]),'Renda fixa':csvNum(c[idx.fixed]),'Internacional':csvNum(c[idx.intl])};
+       const total=csvNum(c[idx.total]);
+       if(!['Piero','Dri'].includes(owner)||!/^\d{4}-\d{2}-\d{2}$/.test(date)||total===null||Object.values(vals).some(v=>v===null)) continue;
+       const detail=Object.entries(vals).map(([k,v])=>[k,'Resumo do CSV (instituição/ativo não detalhado)','BRL',v]);
+       parsed.push({owner,date,total,categories:vals,detail,isTest:norm(c[idx.test]||'')==='SIM'});
+     }
+   } else {
+     if(!window.XLSX) throw new Error('A biblioteca de leitura Excel não carregou. Verifique sua conexão com a internet e tente novamente.');
+     const buf=await f.arrayBuffer(), book=XLSX.read(buf,{type:'array',cellDates:true});
+     for(const sheetName of book.SheetNames){
+       const ws=book.Sheets[sheetName], n=norm(sheetName);
+       const owner=n.includes('PIERO')?'Piero':n.includes('DRI')?'Dri':null;
+       if(owner) parsed.push(...parseSheet(ws,owner));
+     }
+   }
+   if(!parsed.length) throw new Error('Não encontrei snapshots reconhecíveis nas abas ARCA Piero ou ARCA Dri. Confira os nomes das abas, datas e títulos das categorias.');
+   const seen=new Set(data.map(x=>x.owner+'|'+x.date));
+   const importedSeen=new Set();
+   pendingImport=parsed.map(x=>({...x,duplicate:seen.has(x.owner+'|'+x.date)||importedSeen.has(x.owner+'|'+x.date)}));
+   pendingImport.forEach(x=>importedSeen.add(x.owner+'|'+x.date));
+   const fresh=pendingImport.filter(x=>!x.duplicate), dup=pendingImport.filter(x=>x.duplicate);
+   status.innerHTML=`<b>${f.name}</b><br>${parsed.length} snapshot(s) reconhecido(s): <span class="good">${fresh.length} novo(s)</span> · ${dup.length} duplicado(s) que serão ignorados.`;
+   preview.innerHTML=`<div class="note">Prévia: nada foi gravado ainda. Os registros com a mesma combinação de titular e data serão ignorados para evitar duplicidade.</div><table><thead><tr><th>Titular</th><th>Data</th><th class="num">Total informado</th><th>Resultado</th><th>Linhas detalhadas</th></tr></thead><tbody>${pendingImport.map(x=>`<tr><td>${x.owner}</td><td>${dateBR(x.date)}</td><td class="num">${money(x.total)}</td><td>${x.duplicate?'<span class="muted">Duplicado · ignorar</span>':'<span class="good">Novo</span>'}</td><td>${x.detail.length}</td></tr>`).join('')}</tbody></table>`;
+   if(fresh.length){actions.style.display='block';}
+   else status.innerHTML+=`<br><span class="muted">Não há registros novos para importar.</span>`;
+ }catch(err){status.textContent='Não foi possível analisar o arquivo: '+err.message;preview.innerHTML='';pendingImport=[];}
+};
+document.querySelector('#confirmImport').onclick=()=>{
+ const fresh=pendingImport.filter(x=>!x.duplicate);
+ if(!fresh.length)return;
+ const keys=new Set(data.map(x=>x.owner+'|'+x.date));
+ fresh.forEach(x=>{const {duplicate,...record}=x;if(!keys.has(record.owner+'|'+record.date)){record.isTest=false;record.importedAt=new Date().toISOString();data.push(record);keys.add(record.owner+'|'+record.date);logAction('Snapshot importado',record,'Importação '+(document.querySelector('#file').files[0]?.name||'arquivo')); }});
+ data.sort((a,b)=>a.date.localeCompare(b.date)||a.owner.localeCompare(b.owner));
+ try{persistData();}catch(e){alert('Os dados foram importados nesta sessão, mas o navegador não permitiu salvá-los localmente. Exporte uma cópia CSV.')}
+ pendingImport=[];document.querySelector('#importStatus').textContent=`Importação concluída. ${fresh.length} novo(s) snapshot(s) incorporado(s).`;document.querySelector('#preview').innerHTML='<p class="good">Dados adicionados ao histórico. Os registros anteriores foram preservados.</p>';document.querySelector('#importActions').style.display='none';render();
+};
+document.querySelector('#cancelImport').onclick=()=>{pendingImport=[];document.querySelector('#preview').innerHTML='';document.querySelector('#importActions').style.display='none';document.querySelector('#importStatus').textContent='Importação cancelada. Nenhum dado foi alterado.';};
+render();
+
+// --- Central de cotações v5.2 ---
+const quoteSeed = [
+ {id:'PETR4',name:'Petrobras PN',type:'B3',symbol:'PETR4',currency:'BRL',provider:'brapi'},
+ {id:'VALE3',name:'Vale ON',type:'B3',symbol:'VALE3',currency:'BRL',provider:'brapi'},
+ {id:'ITUB4',name:'Itaú Unibanco PN',type:'B3',symbol:'ITUB4',currency:'BRL',provider:'brapi'},
+ {id:'HGLG11',name:'CSHG Logística FII',type:'FII',symbol:'HGLG11',currency:'BRL',provider:'brapi'},
+ {id:'BTC',name:'Bitcoin',type:'Cripto',symbol:'bitcoin',currency:'USD',provider:'coingecko'},
+ {id:'USDC',name:'USD Coin',type:'Cripto',symbol:'usd-coin',currency:'USD',provider:'coingecko'},
+ {id:'SPY',name:'SPDR S&P 500 ETF (EUA)',type:'ETF EUA',symbol:'SPY',currency:'USD',provider:'yahoo'},
+ {id:'CSPX.L',name:'iShares Core S&P 500 UCITS (Irlanda)',type:'ETF Irlanda',symbol:'CSPX.L',currency:'USD',provider:'yahoo'},
+ {id:'VUAA.L',name:'Vanguard S&P 500 UCITS (Irlanda)',type:'ETF Irlanda',symbol:'VUAA.L',currency:'USD',provider:'yahoo'},
+ {id:'VWRA.L',name:'Vanguard FTSE All-World UCITS (Irlanda)',type:'ETF Irlanda',symbol:'VWRA.L',currency:'USD',provider:'yahoo'},
+ {id:'EIMI.L',name:'iShares Core MSCI EM IMI UCITS (Irlanda)',type:'ETF Irlanda',symbol:'EIMI.L',currency:'USD',provider:'yahoo'}
+];
+let quoteAssets=[]; try{quoteAssets=JSON.parse(localStorage.getItem('arca_quote_assets_v1')||'null')||quoteSeed;}catch(e){quoteAssets=quoteSeed;}
+try{if(!localStorage.getItem('arca_fx_seed_v1')){[{id:'USD/BRL',name:'Dólar (USD/BRL)',type:'Câmbio',symbol:'USD/BRL',currency:'BRL',provider:'fx'},{id:'EUR/BRL',name:'Euro (EUR/BRL)',type:'Câmbio',symbol:'EUR/BRL',currency:'BRL',provider:'fx'},{id:'EUR/USD',name:'Euro (EUR/USD)',type:'Câmbio',symbol:'EUR/USD',currency:'USD',provider:'fx'}].forEach(s=>{if(!quoteAssets.some(a=>a.id===s.id))quoteAssets.unshift(s);});localStorage.setItem('arca_quote_assets_v1',JSON.stringify(quoteAssets));localStorage.setItem('arca_fx_seed_v1','1');}}catch(e){}
+let quoteResults={}; try{quoteResults=JSON.parse(localStorage.getItem('arca_quote_results_v1')||'{}')||{};}catch(e){quoteResults={};}
+const savedBrapi=localStorage.getItem('arca_brapi_key_v1')||''; const savedCg=localStorage.getItem('arca_cg_key_v1')||'';
+document.querySelector('#brapiKey').value=savedBrapi; document.querySelector('#cgKey').value=savedCg;
+const fmtQuote=(v,c)=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:c||'USD',maximumFractionDigits:(c==='BTC'?8:4)}).format(v);
+function renderQuoteTable(){
+ const rows=quoteAssets.map(a=>{const r=quoteResults[a.id]||{};const has=Number.isFinite(r.price);return `<tr><td><b>${a.name}</b><div class="hint">${a.id} · ${a.type}</div></td><td>${a.symbol}</td><td class="num">${has?fmtQuote(r.price,r.currency||a.currency):'—'}</td><td class="num" style="color:${r.change>=0?'#72d6ae':'#e4869a'}">${Number.isFinite(r.change)?(r.change>0?'+':'')+r.change.toFixed(2)+'%':'—'}</td><td>${r.source||a.provider}</td><td>${r.at||'Não consultado'}</td><td>${r.error?'<span style="color:#f3c778">'+(has?'Cotação anterior · ':'')+r.error+'</span>':(has?'<span class="good">OK</span>':'')}</td><td><button data-qdel="${a.id}" style="padding:5px 8px">Remover</button></td></tr>`}).join('');
+ document.querySelector('#quoteTable').innerHTML=`<div style="overflow-x:auto"><table><thead><tr><th>Ativo</th><th>Ticker / ID</th><th class="num">Último preço</th><th class="num">Variação</th><th>Fonte</th><th>Atualizado</th><th>Status</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`;
+ document.querySelectorAll('[data-qdel]').forEach(b=>b.onclick=()=>{quoteAssets=quoteAssets.filter(a=>a.id!==b.dataset.qdel);localStorage.setItem('arca_quote_assets_v1',JSON.stringify(quoteAssets));renderQuoteTable();});
+}
+document.querySelector('#irishEtfs').innerHTML=`<table><thead><tr><th>Fundo</th><th>ISIN</th><th>Listagem de referência</th><th>Política</th><th>Domicílio</th></tr></thead><tbody><tr><td>Vanguard S&P 500 UCITS ETF</td><td>IE00BFMXXD54</td><td>VUAA.L · Londres · USD</td><td>Acumulação</td><td>Irlanda</td></tr><tr><td>iShares Core S&P 500 UCITS ETF</td><td>IE00B5BMR087</td><td>CSPX.L · Londres · USD</td><td>Acumulação</td><td>Irlanda</td></tr><tr><td>Vanguard FTSE All-World UCITS ETF</td><td>IE00BK5BQT80</td><td>VWRA.L · Londres · USD</td><td>Acumulação</td><td>Irlanda</td></tr><tr><td>iShares Core MSCI EM IMI UCITS ETF</td><td>IE00BKM4GZ66</td><td>EIMI.L · Londres · USD</td><td>Acumulação</td><td>Irlanda</td></tr></tbody></table>`;
+renderQuoteTable();
+document.querySelector('#saveQuoteKeys').onclick=()=>{localStorage.setItem('arca_brapi_key_v1',document.querySelector('#brapiKey').value.trim());localStorage.setItem('arca_cg_key_v1',document.querySelector('#cgKey').value.trim());document.querySelector('#quoteStatus').textContent='Chaves salvas neste navegador. Não compartilhe este arquivo com as chaves preenchidas.';};
+document.querySelector('#addQuote').onclick=()=>{const symbol=prompt('Ticker/símbolo (ex.: BOVA11, IVVB11, VUAA.L, VWCE.DE):');if(!symbol)return;const type=prompt('Classe: B3, FII, ETF EUA, ETF Irlanda ou outro','ETF Irlanda')||'Outro';const name=prompt('Nome para exibição',symbol)||symbol;const currency=prompt('Moeda da cotação (BRL, USD, EUR, GBP)','USD')||'USD';const provider=prompt('Fonte: brapi, yahoo ou coingecko','yahoo')||'yahoo';const item={id:symbol.toUpperCase(),name,type,symbol,currency,provider};if(quoteAssets.some(a=>a.id===item.id)){alert('Este símbolo já está no radar.');return;}quoteAssets.push(item);localStorage.setItem('arca_quote_assets_v1',JSON.stringify(quoteAssets));renderQuoteTable();};
+async function updateQuoteAsset(a){
+ const at=new Date().toLocaleString('pt-BR');
+ if(a.provider==='coingecko'){
+  const key=document.querySelector('#cgKey').value.trim();const url=`https://api.coingecko.com/api/v3/simple/price?ids=${encodeURIComponent(a.symbol)}&vs_currencies=usd&include_24hr_change=true${key?'&x_cg_demo_api_key='+encodeURIComponent(key):''}`;
+  const res=await fetch(url);if(!res.ok)throw new Error('HTTP '+res.status);const j=await res.json();const q=j[a.symbol];if(!q)throw new Error('Ativo não encontrado');return {price:q.usd,change:q.usd_24h_change,currency:'USD',source:'CoinGecko',at};
+ }
+ if(a.provider==='fx'){
+  const pair=a.symbol.split('/');const url=`https://api.frankfurter.dev/v2/rates?base=${pair[0]}&quotes=${pair[1]}`;const res=await fetch(url);if(!res.ok)throw new Error('HTTP '+res.status);const j=await res.json();const q=Array.isArray(j)?j[0]:j;return {price:Number(q.rate),change:NaN,currency:pair[1],source:'Frankfurter · referência diária',at:q.date||at};
+ }
+ if(a.provider==='brapi') throw new Error('Consulta B3 processada em lote');
+ if(a.provider==='yahoo'){const base=window.ARCA_COTACOES||{};const q=(base.quotes||{})[a.symbol];if(!q||!Number.isFinite(q.price))throw new Error('Sem cotação em cotacoes.js. Rode "python cotacoes.py" e recarregue a página.');return {price:q.price,change:q.change,currency:q.currency||a.currency,source:'Yahoo Finance · via cotacoes.py',at:q.at||base.generated||at};}
+ throw new Error('Fonte não configurada');
+}
+async function updateBrapiBatch(assets){
+ if(!assets.length)return;
+ const key=document.querySelector('#brapiKey').value.trim();
+ const symbols=assets.map(a=>a.symbol).join(',');
+ const url=`https://brapi.dev/api/quote/${encodeURIComponent(symbols)}${key?'?token='+encodeURIComponent(key):''}`;
+ const res=await fetch(url);
+ if(!res.ok)throw new Error('HTTP '+res.status);
+ const j=await res.json();
+ const results=j.results||[];
+ for(const a of assets){
+  const q=results.find(x=>String(x.symbol||'').toUpperCase()===a.symbol.toUpperCase());
+  if(q&&Number.isFinite(Number(q.regularMarketPrice))){
+   quoteResults[a.id]={price:Number(q.regularMarketPrice),change:Number(q.regularMarketChangePercent),currency:'BRL',source:'brapi · consulta em lote',at:new Date().toLocaleString('pt-BR')};
+  }else{
+   const previous=quoteResults[a.id]||{};
+   quoteResults[a.id]={...previous,error:j.message||'Ativo sem cotação nesta consulta',source:'brapi',at:previous.at||'Falha na consulta'};
+  }
+ }
+}
+document.querySelector('#updateQuotes').onclick=async()=>{
+ const btn=document.querySelector('#updateQuotes'),status=document.querySelector('#quoteStatus');btn.disabled=true;status.textContent='Consultando fontes gratuitas…';
+ const b3=quoteAssets.filter(a=>a.provider==='brapi');
+ try{await updateBrapiBatch(b3);}catch(e){for(const a of b3){const previous=quoteResults[a.id]||{};quoteResults[a.id]={...previous,error:e.message,source:'brapi',at:previous.at||'Falha na consulta'};}}
+ const other=quoteAssets.filter(a=>a.provider!=='brapi');
+ for(const a of other){
+  try{quoteResults[a.id]=await updateQuoteAsset(a);}
+  catch(e){const previous=quoteResults[a.id]||{};quoteResults[a.id]={...previous,error:e.message,source:previous.source||a.provider,at:previous.at||'Falha na consulta'};}
+ }
+ try{localStorage.setItem('arca_quote_results_v1',JSON.stringify(quoteResults));}catch(e){}
+ renderQuoteTable();
+ const ok=Object.values(quoteResults).filter(x=>Number.isFinite(x.price)).length;
+ status.textContent=`Consulta concluída: ${ok} ativo(s) têm cotação válida armazenada. B3 consultada em uma única chamada para reduzir HTTP 429. ETFs internacionais seguem pendentes de uma fonte acessível pelo navegador.`;
+ btn.disabled=false;
+};
+
+</script></body></html>

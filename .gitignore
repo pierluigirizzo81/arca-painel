@@ -1,0 +1,6 @@
+# Nunca envie planilhas ou dados pessoais para o repositório
+*.xlsx
+*.xls
+*.csv
+*.json
+__pycache__/
