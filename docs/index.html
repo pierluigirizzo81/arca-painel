@@ -18,18 +18,20 @@ input,select{font:inherit} .quote-input{padding:8px;border-radius:7px;background
 .divider{height:1px;background:var(--line);margin:18px 0}.pie-wrap{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin:6px 0 18px}.pie{width:176px;height:176px;border-radius:50%;background:#24334a;flex:0 0 auto;position:relative}.pie:after{content:"";position:absolute;inset:34px;background:var(--panel);border-radius:50%}.legend{display:grid;gap:9px;font-size:12px;min-width:145px}.legend-row{display:flex;align-items:center;gap:8px}.swatch{width:10px;height:10px;border-radius:3px;display:inline-block;flex:0 0 auto}.intl-total{font-size:22px;font-weight:750;margin:4px 0 14px}.good{color:var(--green)}.muted{color:var(--muted)}.section{display:none}.section.active{display:block}.empty{padding:30px;text-align:center;color:var(--muted)}
 small.tag{color:#a9c9ee;border:1px solid #35577e;border-radius:20px;padding:4px 8px}
 @media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}}@media(max-width:520px){.grid{grid-template-columns:1fr}.barrow{grid-template-columns:90px 1fr 85px;font-size:12px}.value{font-size:22px}}
+.mk-hl{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px}.mk-card{border:1px solid var(--line);border-radius:13px;padding:16px;background:rgba(255,255,255,.03)}.mk-card .l{color:var(--muted);font-size:13px}.mk-card .v{font-size:28px;font-weight:700;margin:6px 0 2px}.mk-up{color:#4ade80}.mk-down{color:#f87171}#mkTables .panel{margin-top:14px;overflow-x:auto}
 </style></head><body>
 <header><div><div class="brand">ARCA · INVESTIMENTOS</div><div class="sub">Painel patrimonial • protótipo local v5.2</div></div><div class="sub">Base: planilha importada em 21/11/2026</div></header>
 <main>
 <div class="toolbar"><label class="kicker" for="owner">Carteira</label><select id="owner"><option value="all">Consolidado (último registro de cada titular)</option><option value="Piero">Piero</option><option value="Dri">Dri</option></select><button class="primary" id="chooseFile">Selecionar Excel ou CSV</button><input type="file" id="file" accept=".xlsx,.xls,.csv" style="display:none"><button class="primary" id="refresh">Atualizar visão</button><button id="export">Exportar snapshots CSV</button></div>
 <div id="dateWarning" class="note"></div>
 <div class="grid" id="kpis"></div>
-<div class="tabs"><button class="tab active" data-tab="overview">Visão geral</button><button class="tab" data-tab="history">Histórico</button><button class="tab" data-tab="details">Posições</button><button class="tab" data-tab="import">Importação</button><button class="tab" data-tab="quotes">Cotações</button></div>
+<div class="tabs"><button class="tab active" data-tab="overview">Visão geral</button><button class="tab" data-tab="history">Histórico</button><button class="tab" data-tab="details">Posições</button><button class="tab" data-tab="import">Importação</button><button class="tab" data-tab="market">Mercado</button><button class="tab" data-tab="quotes">Cotações</button></div>
 <section id="overview" class="section active"><div class="two"><div class="panel"><h3>Distribuição por classe</h3><div class="pie-wrap"><div id="pie" class="pie"></div><div id="pieLegend" class="legend"></div></div><div id="bars"></div></div><div class="panel"><h3>Resumo da carteira</h3><div id="summary"></div></div></div><div class="panel" style="margin-top:14px"><h3>Investimentos internacionais · visão sintética</h3><div id="intlSummary"></div><div id="intlSelection" class="hint" style="margin-top:12px">Clique em uma fatia do gráfico ou em uma legenda para detalhar o ativo por titular e plataforma.</div><p class="hint">Valores convertidos para BRL conforme os valores e cotações registrados na planilha. Quando a planilha agrupa os investimentos, o painel preserva esse agrupamento.</p><div class="divider"></div><h3 style="margin-top:18px">Composição da carteira internacional</h3><div class="pie-wrap"><div id="intlPie" class="pie"></div><div id="intlPieLegend" class="legend"></div></div></div></section>
 <section id="history" class="section"><div class="panel"><h3>Controle dos snapshots</h3><p class="muted">Os snapshots são preservados como registros históricos. Se algum for importado incorretamente, exclua-o e importe novamente o arquivo corrigido. As importações e exclusões ficam registradas na auditoria.</p><div id="historyTable"></div><p class="hint">Snapshots são fotografias do patrimônio em datas específicas. Variações entre datas não são tratadas automaticamente como rentabilidade. Registros marcados como teste ficam identificados e continuam fora de qualquer cálculo de rentabilidade.</p></div><div class="panel" style="margin-top:14px"><h3>Histórico de alterações</h3><div id="auditTable"></div></div></section>
 <section id="details" class="section"><div class="panel"><h3>Posições e instituições</h3><div id="detailTable"></div><p class="hint">Quando a planilha não identifica instituição ou ativo individual, o dado permanece agrupado e sinalizado como não detalhado.</p></div></section>
 <section id="import" class="section"><div class="panel"><h3>Prévia de importação</h3><p class="muted">Selecione uma planilha Excel (abas ARCA Piero/ARCA Dri) ou um CSV exportado pelo dashboard. Confira a prévia antes de incorporar os snapshots.</p><div id="importStatus" class="empty">Selecione sua planilha Excel ou CSV. Os dados serão analisados antes de qualquer alteração.</div><div id="preview"></div><div id="importActions" style="display:none;margin-top:14px"><button class="primary" id="confirmImport">Confirmar importação dos novos snapshots</button> <button id="cancelImport">Cancelar</button></div></div></section>
 
+<section id="market" class="section"><div class="panel"><h3>Câmbio e Bitcoin em reais</h3><div id="mkHighlights" class="mk-hl"></div><p class="muted" id="mkStamp"></p></div><div id="mkTables"></div></section>
 <section id="quotes" class="section">
  <div class="panel">
   <h3>Central de cotações</h3>
@@ -360,8 +362,31 @@ document.querySelector('#updateQuotes').onclick=async()=>{
  try{localStorage.setItem('arca_quote_results_v1',JSON.stringify(quoteResults));}catch(e){}
  renderQuoteTable();
  const ok=Object.values(quoteResults).filter(x=>Number.isFinite(x.price)).length;
- status.textContent=`Consulta concluída: ${ok} ativo(s) têm cotação válida armazenada. B3 consultada em uma única chamada para reduzir HTTP 429. ETFs internacionais seguem pendentes de uma fonte acessível pelo navegador.`;
+ status.textContent=`Consulta concluída: ${ok} ativo(s) têm cotação válida armazenada. B3 consultada em uma única chamada para reduzir HTTP 429. ETFs e demais ativos do radar ficam na aba Mercado.`;
  btn.disabled=false;
 };
 
-</script></body></html>
+</script><script>
+(function(){
+const D=window.ARCA_COTACOES||{};
+const esc=t=>String(t==null?'':t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const f=(v,d=2)=>v==null?'—':new Intl.NumberFormat('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d}).format(v);
+const cur=c=>c==='BRL'?'R$':c==='USD'?'US$':c==='EUR'?'€':(c||'');
+const chg=v=>v==null?'<span class="muted">—</span>':'<span class="'+(v>=0?'mk-up':'mk-down')+'">'+(v>=0?'+':'')+f(v)+'%</span>';
+const hl=document.querySelector('#mkHighlights'),tb=document.querySelector('#mkTables'),st=document.querySelector('#mkStamp');
+if(!D.generated){hl.innerHTML='<p class="muted">Sem cotações ainda. No GitHub, abra Actions, rode "Atualizar cotações" e recarregue esta página.</p>';return;}
+hl.innerHTML=(D.destaques||[]).map(d=>'<div class="mk-card"><div class="l">'+esc(d.rotulo)+'</div><div class="v">R$ '+f(d.price,d.price<100?4:2)+'</div>'+chg(d.change)+'</div>').join('')||'<p class="muted">Câmbio indisponível na última atualização.</p>';
+st.textContent='Atualizado em '+D.generated+' · fonte: Yahoo Finance e Fundamentus (podem ter atraso).';
+const tipos=[['acao','Ações',1],['fii','Fundos imobiliários (FIIs)',1],['etf_br','ETFs brasileiros',0],['etf_eua','ETFs americanos',0],['etf_irlanda','ETFs irlandeses e europeus (UCITS)',0]];
+tb.innerHTML=tipos.map(([k,nome,pv])=>{const a=(D.assets||[]).filter(x=>x.tipo===k);if(!a.length)return '';
+ return '<div class="panel"><h3>'+nome+'</h3><table><thead><tr><th>Ativo</th><th class="num">Preço</th><th class="num">Dia</th>'+(pv?'<th class="num">P/VP</th>':'')+'</tr></thead><tbody>'+
+ a.map(x=>'<tr><td><b>'+esc(x.ticker)+'</b><br><span class="muted">'+esc(x.nome)+'</span></td><td class="num">'+(x.price==null?'—':cur(x.currency)+' '+f(x.price))+'</td><td class="num">'+chg(x.change)+'</td>'+(pv?'<td class="num">'+f(x.pvp)+'</td>':'')+'</tr>').join('')+'</tbody></table></div>';}).join('');
+const T=D.tesouro||[];
+if(T.length){tb.innerHTML+=[['prefixado','Tesouro Direto — Prefixados'],['ipca','Tesouro Direto — IPCA+'],['renda','Tesouro Direto — RendA+ 2065']].map(([k,nome])=>{const a=T.filter(x=>x.grupo===k);if(!a.length)return '';
+ const tx=v=>k==='prefixado'?f(v)+'% a.a.':'IPCA + '+f(v)+'%';
+ return '<div class="panel"><h3>'+nome+'</h3><table><thead><tr><th>Título</th><th>Vencimento</th><th class="num">Taxa de compra</th><th class="num">Var. taxa (p.p.)</th><th class="num">PU de compra</th></tr></thead><tbody>'+
+ a.map(x=>'<tr><td>'+esc(x.titulo)+'</td><td>'+esc(x.vencimento)+'</td><td class="num">'+tx(x.taxa_compra)+'</td><td class="num">'+(x.var_taxa==null?'—':(x.var_taxa>0?'+':'')+f(x.var_taxa))+'</td><td class="num">'+(x.pu_compra==null?'—':'R$ '+f(x.pu_compra))+'</td></tr>').join('')+
+ '</tbody></table><p class="muted">Taxas e preços de abertura de '+esc(a[0].data_base)+' (Tesouro Transparente). O site do Tesouro Direto atualiza ao longo do dia.</p></div>';}).join('');}
+})();
+</script>
+</body></html>

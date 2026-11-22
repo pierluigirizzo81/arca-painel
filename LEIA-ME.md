@@ -26,3 +26,15 @@ Seus saldos ficam só no navegador, depois que você importa a planilha Excel.
 - Os dados ficam no navegador de cada dispositivo. No celular, importe a planilha de novo.
 - Para acompanhar outros ETFs, inclua o ticker em `scripts/cotacoes.py`
   (lista `TICKERS`) e no radar do painel, com a fonte "yahoo".
+
+## Lista de ativos (radar.txt)
+
+Edite `radar.txt` (direto no GitHub, com o lápis) para escolher os ativos.
+Formato: `tipo;ticker;nome`, com tipo `acao`, `fii`, `etf_eua` ou `etf_irlanda`.
+Ao salvar, as cotações são atualizadas automaticamente em cerca de 1 minuto.
+O P/VP vem do Fundamentus (só ações e FIIs) e pode ficar vazio quando indisponível.
+
+## Tesouro Direto
+
+O script baixa o arquivo público de preços e taxas do Tesouro Transparente e mostra
+Prefixados, IPCA+ e RendA+ 2065 na aba Mercado (taxas e preços de abertura do último dia disponível).

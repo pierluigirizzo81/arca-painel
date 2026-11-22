@@ -1,0 +1,42 @@
+# Lista de ativos para acompanhar. Formato: tipo;ticker;nome
+# tipos: acao | fii | etf_br | etf_eua | etf_irlanda (UCITS europeus, irlandeses ou não)
+# B3: digite só o ticker (ex.: PETR4). ETFs no exterior: ticker do Yahoo Finance com sufixo da bolsa
+# (.L = Londres, .AS = Amsterdã, .DE = Xetra, .PA = Paris). Linhas com # são ignoradas.
+acao;AZZA3;Azzas 2154
+acao;SOJA3;Boa Safra Sementes
+etf_br;BOVA11;iShares Ibovespa
+fii;HGLG11;CSHG Logística
+fii;BTHF11;BTHF11
+fii;XPML11;XP Malls
+fii;IRIM11;Iridium Recebíveis Imobiliários
+fii;ALZR11;Alianza Trust Renda Imobiliária
+fii;KNCR11;Kinea Rendimentos Imobiliários
+etf_eua;VNQ;Vanguard Real Estate
+etf_eua;VGT;Vanguard Information Technology
+etf_eua;VCLT;Vanguard Long-Term Corporate Bond
+etf_eua;IAU;iShares Gold Trust
+etf_irlanda;XEON.DE;Xtrackers EUR Overnight Rate Swap
+etf_irlanda;CSH2.PA;Amundi Smart Overnight Return
+etf_irlanda;IEGE.AS;iShares € Govt Bond 0-1yr UCITS
+etf_irlanda;CSPX.L;iShares Core S&P 500 UCITS
+etf_irlanda;VWRA.L;Vanguard FTSE All-World UCITS
+etf_irlanda;EQQQ.L;Invesco EQQQ Nasdaq-100 UCITS
+etf_irlanda;LQDA.L;iShares $ Corporate Bond UCITS
+acao;BBAS3;Banco do Brasil ON
+acao;SAPR4;Sanepar PN
+acao;FIQE3;Unifique Telecomunicações
+acao;ITSA4;Itaúsa PN
+acao;JHSF3;JHSF Participações
+acao;PRIO3;PRIO ON
+acao;WFCO34;Wells Fargo (BDR)
+etf_br;AUVP11;BTG Teva AUVP Ações Fundamentos
+etf_br;DIVD11;It Now IDIV Dividendos
+fii;CPTS11;Capitânia Securities II
+fii;VISC11;Vinci Shopping Centers
+fii;RECR11;REC Recebíveis Imobiliários
+fii;HGRU11;CSHG Renda Urbana
+fii;VILG11;Vinci Logística
+fii;HGRE11;CSHG Real Estate
+etf_eua;VOO;Vanguard S&P 500
+etf_eua;GDX;VanEck Gold Miners
+etf_eua;OGIG;Global Internet Giants
