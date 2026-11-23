@@ -40,3 +40,6 @@ fii;HGRE11;CSHG Real Estate
 etf_eua;VOO;Vanguard S&P 500
 etf_eua;GDX;VanEck Gold Miners
 etf_eua;OGIG;Global Internet Giants
+etf_irlanda;VWCE.DE;Vanguard FTSE All-World UCITS Acc
+etf_irlanda;SXRV.DE;iShares Nasdaq 100 UCITS
+etf_irlanda;CSX5.L;iShares Core EURO STOXX 50 UCITS
