@@ -19,6 +19,7 @@ input,select{font:inherit} .quote-input{padding:8px;border-radius:7px;background
 small.tag{color:#a9c9ee;border:1px solid #35577e;border-radius:20px;padding:4px 8px}
 @media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}}@media(max-width:520px){.grid{grid-template-columns:1fr}.barrow{grid-template-columns:90px 1fr 85px;font-size:12px}.value{font-size:22px}}
 .mk-hl{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px}.mk-card{border:1px solid var(--line);border-radius:13px;padding:16px;background:rgba(255,255,255,.03)}.mk-card .l{color:var(--muted);font-size:13px}.mk-card .v{font-size:28px;font-weight:700;margin:6px 0 2px}.mk-up{color:#4ade80}.mk-down{color:#f87171}#mkTables .panel{margin-top:14px;overflow-x:auto}
+.mk-link{cursor:pointer}b.mk-link{border-bottom:1px dotted var(--muted)}b.mk-link:hover,.mk-card.mk-link:hover{color:var(--accent);border-color:var(--accent)}#mkModal{display:none;position:fixed;inset:0;background:rgba(5,10,20,.75);z-index:50;align-items:center;justify-content:center;padding:16px}#mkModal.on{display:flex}.mk-box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;width:min(820px,100%);max-height:94vh;overflow:auto;position:relative}.mk-x{position:absolute;right:12px;top:8px;background:none;border:0;color:var(--muted);font-size:28px;cursor:pointer}.mk-rng{display:flex;gap:6px;margin:10px 0}.mk-rng button{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:5px 12px;cursor:pointer}.mk-rng button.on{background:#1d3a5f;border-color:var(--accent)}#mkSvg{width:100%;height:auto;touch-action:none}
 </style></head><body>
 <header><div><div class="brand">ARCA · INVESTIMENTOS</div><div class="sub">Painel patrimonial • protótipo local v5.2</div></div><div class="sub">Base: planilha importada em 21/11/2026</div></header>
 <main>
@@ -51,6 +52,7 @@ small.tag{color:#a9c9ee;border:1px solid #35577e;border-radius:20px;padding:4px 
 <p class="hint">Protótipo local: importação Excel/CSV com prévia e detecção de duplicidades. Os dados importados ficam salvos neste navegador; ainda não há servidor, login nem sincronização entre dispositivos. Cotações de ETFs vêm do arquivo cotacoes.js, gerado pelo script cotacoes.py.</p>
 </main>
 <script src="cotacoes.js" onerror="void 0"></script>
+<script src="historico.js" onerror="void 0"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script>
 const seeded = [];
@@ -372,21 +374,52 @@ const D=window.ARCA_COTACOES||{};
 const esc=t=>String(t==null?'':t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const f=(v,d=2)=>v==null?'—':new Intl.NumberFormat('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d}).format(v);
 const cur=c=>c==='BRL'?'R$':c==='USD'?'US$':c==='EUR'?'€':(c||'');
-const chg=v=>v==null?'<span class="muted">—</span>':'<span class="'+(v>=0?'mk-up':'mk-down')+'">'+(v>=0?'+':'')+f(v)+'%</span>';
+const chg=v=>v==null?'<span class="muted">—</span>':Math.abs(v)<0.005?'<span class="muted">0,00%</span>':'<span class="'+(v>0?'mk-up':'mk-down')+'">'+(v>0?'+':'')+f(v)+'%</span>';
 const hl=document.querySelector('#mkHighlights'),tb=document.querySelector('#mkTables'),st=document.querySelector('#mkStamp');
 if(!D.generated){hl.innerHTML='<p class="muted">Sem cotações ainda. No GitHub, abra Actions, rode "Atualizar cotações" e recarregue esta página.</p>';return;}
-hl.innerHTML=(D.destaques||[]).map(d=>'<div class="mk-card"><div class="l">'+esc(d.rotulo)+'</div><div class="v">R$ '+f(d.price,d.price<100?4:2)+'</div>'+chg(d.change)+'</div>').join('')||'<p class="muted">Câmbio indisponível na última atualização.</p>';
-st.textContent='Atualizado em '+D.generated+' · fonte: Yahoo Finance e Fundamentus (podem ter atraso).';
+hl.innerHTML=(D.destaques||[]).map(d=>'<div class="mk-card mk-link" data-t="'+esc(d.id)+'"><div class="l">'+esc(d.rotulo)+'</div><div class="v">R$ '+f(d.price,d.price<100?4:2)+'</div>'+chg(d.change)+'</div>').join('')||'<p class="muted">Câmbio indisponível na última atualização.</p>';
+st.textContent='Atualizado em '+D.generated+' · fonte: Yahoo Finance e Fundamentus (podem ter atraso). Clique em um ativo para ver o histórico.';
 const tipos=[['acao','Ações',1],['fii','Fundos imobiliários (FIIs)',1],['etf_br','ETFs brasileiros',0],['etf_eua','ETFs americanos',0],['etf_irlanda','ETFs irlandeses e europeus (UCITS)',0]];
 tb.innerHTML=tipos.map(([k,nome,pv])=>{const a=(D.assets||[]).filter(x=>x.tipo===k);if(!a.length)return '';
  return '<div class="panel"><h3>'+nome+'</h3><table><thead><tr><th>Ativo</th><th class="num">Preço</th><th class="num">Dia</th>'+(pv?'<th class="num">P/VP</th>':'')+'</tr></thead><tbody>'+
- a.map(x=>'<tr><td><b>'+esc(x.ticker)+'</b><br><span class="muted">'+esc(x.nome)+'</span></td><td class="num">'+(x.price==null?'—':cur(x.currency)+' '+f(x.price))+'</td><td class="num">'+chg(x.change)+'</td>'+(pv?'<td class="num">'+f(x.pvp)+'</td>':'')+'</tr>').join('')+'</tbody></table></div>';}).join('');
+ a.map(x=>'<tr><td><b class="mk-link" data-t="'+esc(x.ticker)+'">'+esc(x.ticker)+'</b><br><span class="muted">'+esc(x.nome)+'</span></td><td class="num">'+(x.price==null?'—':cur(x.currency)+' '+f(x.price))+'</td><td class="num">'+chg(x.change)+'</td>'+(pv?'<td class="num">'+f(x.pvp)+'</td>':'')+'</tr>').join('')+'</tbody></table></div>';}).join('');
 const T=D.tesouro||[];
 if(T.length){tb.innerHTML+=[['prefixado','Tesouro Direto — Prefixados'],['ipca','Tesouro Direto — IPCA+'],['renda','Tesouro Direto — RendA+ 2065']].map(([k,nome])=>{const a=T.filter(x=>x.grupo===k);if(!a.length)return '';
  const tx=v=>k==='prefixado'?f(v)+'% a.a.':'IPCA + '+f(v)+'%';
  return '<div class="panel"><h3>'+nome+'</h3><table><thead><tr><th>Título</th><th>Vencimento</th><th class="num">Taxa de compra</th><th class="num">Var. taxa (p.p.)</th><th class="num">PU de compra</th></tr></thead><tbody>'+
- a.map(x=>'<tr><td>'+esc(x.titulo)+'</td><td>'+esc(x.vencimento)+'</td><td class="num">'+tx(x.taxa_compra)+'</td><td class="num">'+(x.var_taxa==null?'—':(x.var_taxa>0?'+':'')+f(x.var_taxa))+'</td><td class="num">'+(x.pu_compra==null?'—':'R$ '+f(x.pu_compra))+'</td></tr>').join('')+
+ a.map(x=>'<tr><td>'+esc(x.titulo)+'</td><td>'+esc(x.vencimento)+'</td><td class="num">'+tx(x.taxa_compra)+'</td><td class="num">'+(x.var_taxa==null?'—':Math.abs(x.var_taxa)<0.005?'0,00':(x.var_taxa>0?'+':'')+f(x.var_taxa))+'</td><td class="num">'+(x.pu_compra==null?'—':'R$ '+f(x.pu_compra))+'</td></tr>').join('')+
  '</tbody></table><p class="muted">Taxas e preços de abertura de '+esc(a[0].data_base)+' (Tesouro Transparente). O site do Tesouro Direto atualiza ao longo do dia.</p></div>';}).join('');}
+const HS=(window.ARCA_HISTORICO||{}).series||{};
+const md=document.createElement('div');md.id='mkModal';
+md.innerHTML='<div class="mk-box"><button class="mk-x" aria-label="Fechar">×</button><h3 id="mkMT"></h3><div id="mkMS" class="muted"></div><div class="mk-rng"></div><svg id="mkSvg" viewBox="0 0 760 330"></svg><div id="mkTip" class="muted" style="min-height:22px"></div></div>';
+document.body.appendChild(md);
+const RG=[['1M',31],['6M',183],['1A',366],['5A',1830],['Máx',1e5]];let sel=null,rg='1A',vis=[];
+const dbr=d=>d.slice(8)+'/'+d.slice(5,7)+'/'+d.slice(0,4);
+const rbtn=md.querySelector('.mk-rng');rbtn.innerHTML=RG.map(r=>'<button data-r="'+r[0]+'">'+r[0]+'</button>').join('');
+function nome(t){const a=(D.assets||[]).find(x=>x.ticker===t);if(a)return a.ticker+' — '+a.nome;const d=(D.destaques||[]).find(x=>x.id===t);return d?d.rotulo:t;}
+function sym(m){return m==='BRL'?'R$':m==='USD'?'US$':m==='EUR'?'€':(m||'')}
+function draw(){const S=HS[sel],svg=md.querySelector('#mkSvg'),ms=md.querySelector('#mkMS');
+ rbtn.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.r===rg));
+ md.querySelector('#mkMT').textContent=nome(sel);md.querySelector('#mkTip').textContent='';
+ if(!S||!S.pts.length){svg.innerHTML='';svg._m=null;ms.textContent='Histórico ainda não disponível para este ativo. Rode "Atualizar cotações" em Actions; o histórico é gerado uma vez por dia.';return;}
+ const last=new Date(S.pts[S.pts.length-1][0]),dias=RG.find(r=>r[0]===rg)[1];
+ vis=S.pts.filter(p=>(last-new Date(p[0]))/864e5<=dias);if(vis.length<2)vis=S.pts.slice(-2);
+ const vs=vis.map(p=>p[1]),mn=Math.min(...vs),mx=Math.max(...vs),pad=(mx-mn)*.08||mx*.01,lo=mn-pad,hi=mx+pad,c=sym(S.currency);
+ const X=i=>56+i*(694/(vis.length-1)),Y=v=>12+(hi-v)*(282/(hi-lo));
+ const vr=(vs[vs.length-1]/vs[0]-1)*100;
+ ms.innerHTML='Último: <b>'+c+' '+f(vs[vs.length-1])+'</b> · no período: <span class="'+(vr>=0?'mk-up':'mk-down')+'">'+(vr>0?'+':'')+f(vr)+'%</span> · mín. '+f(mn)+' · máx. '+f(mx);
+ let g='';for(let k=0;k<5;k++){const v=lo+(hi-lo)*k/4,y=Y(v);g+='<line x1="56" x2="750" y1="'+y+'" y2="'+y+'" stroke="#263650"/><text x="50" y="'+(y+4)+'" text-anchor="end" fill="#9eafc5" font-size="11">'+f(v,v<10?3:2)+'</text>';}
+ g+='<text x="56" y="322" fill="#9eafc5" font-size="11">'+dbr(vis[0][0])+'</text><text x="750" y="322" text-anchor="end" fill="#9eafc5" font-size="11">'+dbr(vis[vis.length-1][0])+'</text>';
+ g+='<polyline fill="none" stroke="#78b7ff" stroke-width="2" points="'+vis.map((p,i)=>X(i).toFixed(1)+','+Y(p[1]).toFixed(1)).join(' ')+'"/><line id="mkV" y1="12" y2="294" stroke="#9eafc5" stroke-dasharray="3" style="display:none"/><circle id="mkC" r="4" fill="#78b7ff" style="display:none"/>';
+ svg.innerHTML=g;svg._m={X,Y,c};}
+md.querySelector('#mkSvg').addEventListener('pointermove',e=>{const svg=e.currentTarget,m=svg._m;if(!m||!vis.length)return;const r=svg.getBoundingClientRect(),x=(e.clientX-r.left)*760/r.width;
+ const i=Math.max(0,Math.min(vis.length-1,Math.round((x-56)/(694/(vis.length-1)))));const p=vis[i],cx=m.X(i),cy=m.Y(p[1]);
+ const v=svg.querySelector('#mkV'),c=svg.querySelector('#mkC');v.setAttribute('x1',cx);v.setAttribute('x2',cx);v.style.display='';c.setAttribute('cx',cx);c.setAttribute('cy',cy);c.style.display='';
+ md.querySelector('#mkTip').textContent=dbr(p[0])+' · '+m.c+' '+f(p[1],p[1]<10?4:2);});
+rbtn.addEventListener('click',e=>{if(e.target.dataset.r){rg=e.target.dataset.r;draw();}});
+md.addEventListener('click',e=>{if(e.target===md||e.target.classList.contains('mk-x'))md.classList.remove('on');});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')md.classList.remove('on');});
+document.querySelector('#market').addEventListener('click',e=>{const t=e.target.closest('[data-t]');if(!t)return;sel=t.dataset.t;md.classList.add('on');draw();});
 })();
 </script>
 </body></html>
