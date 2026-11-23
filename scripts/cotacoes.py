@@ -120,7 +120,18 @@ def tesouro():
     cx, cs, cp = col("taxa compra"), col("taxa venda"), col("pu compra")
     for k in (cv, cb):
         df[k] = pd.to_datetime(df[k], format="%d/%m/%Y", errors="coerce")
-    df = df.dropna(subset=[cv, cb])
+    print(f"Tesouro: colunas = {list(df.columns)[:8]}; {len(df)} linhas")
+    df = df.dropna(subset=[cv, cb, cx])  # ignora linhas sem taxa (dia ainda não preenchido)
+
+    def relevante(r):
+        t = sem_acento(r[ct])
+        if "semestrais" in t:
+            return False
+        return "prefixado" in t or "ipca" in t or ("renda" in t and r[cv].year == 2065)
+
+    df = df[df.apply(relevante, axis=1)]
+    if df.empty:
+        raise ValueError("nenhum título relevante com taxa no arquivo")
     ultima = df[cb].max()
     atual = df[df[cb] == ultima]
     ant = df[df[cb] < ultima].sort_values(cb).groupby([ct, cv]).tail(1)
@@ -234,6 +245,13 @@ def main():
     except Exception as e:
         print(f"Tesouro Direto indisponível: {e}")
         td = []
+    if not td:  # mantém a última versão boa em vez de apagar as tabelas
+        try:
+            txt = SAIDA.read_text(encoding="utf-8")
+            td = json.loads(txt[txt.index("{"):txt.rindex("}") + 1]).get("tesouro", [])
+            print(f"Tesouro: mantidos {len(td)} títulos da atualização anterior")
+        except Exception:
+            td = []
     por_id = {}
     for id_, rotulo, simbolo in DESTAQUES:
         try:
@@ -245,21 +263,4 @@ def main():
             b, u = buscar("BTC-USD"), por_id["usd"]
             por_id["btc"] = {"id": "btc", "rotulo": "Bitcoin (BTC/BRL)", "currency": "BRL",
                              "price": round(b["price"] * u["price"], 2),
-                             "change": round(((1 + b["change"] / 100) * (1 + u["change"] / 100) - 1) * 100, 2)}
-            print("Bitcoin: calculado a partir de BTC-USD x USD/BRL")
-        except Exception as e:
-            print(f"Bitcoin: falhou ({e})")
-    destaques = [por_id[i] for i, _, _ in DESTAQUES if i in por_id]
-    if not assets and not destaques and not td:
-        raise SystemExit("Nenhuma cotação obtida; arquivo não foi alterado.")
-    dados = {"generated": agora(), "destaques": destaques, "assets": assets, "tesouro": td, "quotes": quotes}
-    SAIDA.write_text("window.ARCA_COTACOES = " + json.dumps(dados, ensure_ascii=False, indent=1) + ";\n", encoding="utf-8")
-    print(f"Gravado: {SAIDA}")
-    try:
-        atualizar_historico(itens)
-    except Exception as e:
-        print(f"Histórico indisponível: {e}")
-
-
-if __name__ == "__main__":
-    main()
+                             "change": round(((1 + b["change"
