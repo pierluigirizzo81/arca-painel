@@ -1,5 +1,5 @@
 window.ARCA_COTACOES = {
- "generated": "22/11/2026 16:24 UTC",
+ "generated": "23/11/2026 03:52 UTC",
  "destaques": [
   {
    "id": "usd",
@@ -11,8 +11,8 @@ window.ARCA_COTACOES = {
   {
    "id": "eur",
    "rotulo": "Euro (EUR/BRL)",
-   "price": 6.502,
-   "change": 0.85,
+   "price": 6.5327,
+   "change": 0.47,
    "currency": "BRL"
   }
  ],
@@ -25,7 +25,7 @@ window.ARCA_COTACOES = {
    "change": -7.29,
    "currency": "BRL",
    "pvp": 0.37,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "acao",
@@ -35,7 +35,7 @@ window.ARCA_COTACOES = {
    "change": -0.59,
    "currency": "BRL",
    "pvp": 0.52,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "etf_br",
@@ -45,7 +45,7 @@ window.ARCA_COTACOES = {
    "change": -0.49,
    "currency": "BRL",
    "pvp": null,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "fii",
@@ -55,7 +55,7 @@ window.ARCA_COTACOES = {
    "change": -0.6,
    "currency": "BRL",
    "pvp": 0.86,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "fii",
@@ -65,7 +65,7 @@ window.ARCA_COTACOES = {
    "change": -0.5,
    "currency": "BRL",
    "pvp": 0.86,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "fii",
@@ -75,7 +75,7 @@ window.ARCA_COTACOES = {
    "change": -4.44,
    "currency": "BRL",
    "pvp": 0.79,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "fii",
@@ -85,7 +85,7 @@ window.ARCA_COTACOES = {
    "change": -1.79,
    "currency": "BRL",
    "pvp": 0.69,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "fii",
@@ -95,7 +95,7 @@ window.ARCA_COTACOES = {
    "change": -0.42,
    "currency": "BRL",
    "pvp": 0.87,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "fii",
@@ -105,7 +105,7 @@ window.ARCA_COTACOES = {
    "change": -0.16,
    "currency": "BRL",
    "pvp": 1.01,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "etf_eua",
@@ -115,7 +115,7 @@ window.ARCA_COTACOES = {
    "change": -0.97,
    "currency": "USD",
    "pvp": null,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "etf_eua",
@@ -125,7 +125,7 @@ window.ARCA_COTACOES = {
    "change": -7.0,
    "currency": "USD",
    "pvp": null,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "etf_eua",
@@ -135,7 +135,7 @@ window.ARCA_COTACOES = {
    "change": 0.75,
    "currency": "USD",
    "pvp": null,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "etf_eua",
@@ -145,7 +145,7 @@ window.ARCA_COTACOES = {
    "change": -3.62,
    "currency": "USD",
    "pvp": null,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "etf_irlanda",
@@ -155,7 +155,7 @@ window.ARCA_COTACOES = {
    "change": -0.0,
    "currency": "EUR",
    "pvp": null,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "etf_irlanda",
@@ -165,7 +165,7 @@ window.ARCA_COTACOES = {
    "change": 0.04,
    "currency": "EUR",
    "pvp": null,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "etf_irlanda",
@@ -175,7 +175,7 @@ window.ARCA_COTACOES = {
    "change": 0.03,
    "currency": "EUR",
    "pvp": null,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "etf_irlanda",
@@ -185,7 +185,7 @@ window.ARCA_COTACOES = {
    "change": -3.39,
    "currency": "USD",
    "pvp": null,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "etf_irlanda",
@@ -195,7 +195,7 @@ window.ARCA_COTACOES = {
    "change": -3.3,
    "currency": "USD",
    "pvp": null,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "etf_irlanda",
@@ -205,7 +205,7 @@ window.ARCA_COTACOES = {
    "change": -5.56,
    "currency": "GBP",
    "pvp": null,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "etf_irlanda",
@@ -215,7 +215,7 @@ window.ARCA_COTACOES = {
    "change": 0.18,
    "currency": "USD",
    "pvp": null,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "acao",
@@ -225,7 +225,7 @@ window.ARCA_COTACOES = {
    "change": 1.27,
    "currency": "BRL",
    "pvp": 0.45,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "acao",
@@ -235,7 +235,7 @@ window.ARCA_COTACOES = {
    "change": -0.45,
    "currency": "BRL",
    "pvp": 0.81,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "acao",
@@ -245,7 +245,7 @@ window.ARCA_COTACOES = {
    "change": -0.35,
    "currency": "BRL",
    "pvp": 1.82,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "acao",
@@ -255,7 +255,7 @@ window.ARCA_COTACOES = {
    "change": 0.15,
    "currency": "BRL",
    "pvp": 1.51,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "acao",
@@ -265,7 +265,7 @@ window.ARCA_COTACOES = {
    "change": -2.36,
    "currency": "BRL",
    "pvp": 0.83,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "acao",
@@ -275,7 +275,7 @@ window.ARCA_COTACOES = {
    "change": -2.7,
    "currency": "BRL",
    "pvp": 1.7,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "acao",
@@ -285,7 +285,7 @@ window.ARCA_COTACOES = {
    "change": -0.11,
    "currency": "BRL",
    "pvp": null,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "etf_br",
@@ -295,7 +295,7 @@ window.ARCA_COTACOES = {
    "change": -0.74,
    "currency": "BRL",
    "pvp": null,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "etf_br",
@@ -305,7 +305,7 @@ window.ARCA_COTACOES = {
    "change": -0.55,
    "currency": "BRL",
    "pvp": null,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "fii",
@@ -315,7 +315,7 @@ window.ARCA_COTACOES = {
    "change": -0.76,
    "currency": "BRL",
    "pvp": 0.77,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "fii",
@@ -325,7 +325,7 @@ window.ARCA_COTACOES = {
    "change": 0.79,
    "currency": "BRL",
    "pvp": 0.82,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "fii",
@@ -335,7 +335,7 @@ window.ARCA_COTACOES = {
    "change": -1.37,
    "currency": "BRL",
    "pvp": 0.75,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "fii",
@@ -345,7 +345,7 @@ window.ARCA_COTACOES = {
    "change": -1.38,
    "currency": "BRL",
    "pvp": 0.87,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "fii",
@@ -355,7 +355,7 @@ window.ARCA_COTACOES = {
    "change": -1.72,
    "currency": "BRL",
    "pvp": 0.8,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "fii",
@@ -365,7 +365,7 @@ window.ARCA_COTACOES = {
    "change": 0.23,
    "currency": "BRL",
    "pvp": 0.74,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "etf_eua",
@@ -375,7 +375,7 @@ window.ARCA_COTACOES = {
    "change": -3.41,
    "currency": "USD",
    "pvp": null,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "etf_eua",
@@ -385,7 +385,7 @@ window.ARCA_COTACOES = {
    "change": -5.0,
    "currency": "USD",
    "pvp": null,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   {
    "tipo": "etf_eua",
@@ -395,499 +395,238 @@ window.ARCA_COTACOES = {
    "change": -4.71,
    "currency": "USD",
    "pvp": null,
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   }
  ],
- "tesouro": [
-  {
-   "grupo": "prefixado",
-   "titulo": "Tesouro Prefixado",
-   "vencimento": "01/01/2027",
-   "taxa_compra": 13.56,
-   "taxa_venda": 13.68,
-   "pu_compra": 985.97,
-   "var_taxa": 0.0,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "prefixado",
-   "titulo": "Tesouro Prefixado",
-   "vencimento": "01/01/2028",
-   "taxa_compra": 14.47,
-   "taxa_venda": 14.59,
-   "pu_compra": 861.03,
-   "var_taxa": 0.09,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "prefixado",
-   "titulo": "Tesouro Prefixado",
-   "vencimento": "01/01/2029",
-   "taxa_compra": 15.04,
-   "taxa_venda": 15.16,
-   "pu_compra": 746.01,
-   "var_taxa": 0.1,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "prefixado",
-   "titulo": "Tesouro Prefixado",
-   "vencimento": "01/01/2031",
-   "taxa_compra": 15.35,
-   "taxa_venda": 15.47,
-   "pu_compra": 558.47,
-   "var_taxa": 0.15,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "prefixado",
-   "titulo": "Tesouro Prefixado",
-   "vencimento": "01/01/2032",
-   "taxa_compra": 15.43,
-   "taxa_venda": 15.55,
-   "pu_compra": 482.45,
-   "var_taxa": 0.15,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "prefixado",
-   "titulo": "Tesouro Prefixado com Juros Semestrais",
-   "vencimento": "01/01/2027",
-   "taxa_compra": 13.61,
-   "taxa_venda": 13.73,
-   "pu_compra": 1034.04,
-   "var_taxa": -0.01,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "prefixado",
-   "titulo": "Tesouro Prefixado com Juros Semestrais",
-   "vencimento": "01/01/2029",
-   "taxa_compra": 14.95,
-   "taxa_venda": 15.07,
-   "pu_compra": 957.56,
-   "var_taxa": 0.11,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "prefixado",
-   "titulo": "Tesouro Prefixado com Juros Semestrais",
-   "vencimento": "01/01/2031",
-   "taxa_compra": 15.34,
-   "taxa_venda": 15.46,
-   "pu_compra": 890.07,
-   "var_taxa": 0.15,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "prefixado",
-   "titulo": "Tesouro Prefixado com Juros Semestrais",
-   "vencimento": "01/01/2033",
-   "taxa_compra": 15.47,
-   "taxa_venda": 15.59,
-   "pu_compra": 838.87,
-   "var_taxa": 0.15,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "prefixado",
-   "titulo": "Tesouro Prefixado com Juros Semestrais",
-   "vencimento": "01/01/2035",
-   "taxa_compra": 15.46,
-   "taxa_venda": 15.58,
-   "pu_compra": 804.21,
-   "var_taxa": 0.15,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "prefixado",
-   "titulo": "Tesouro Prefixado com Juros Semestrais",
-   "vencimento": "01/01/2037",
-   "taxa_compra": 15.36,
-   "taxa_venda": 15.48,
-   "pu_compra": 781.36,
-   "var_taxa": 0.14,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "ipca",
-   "titulo": "Tesouro IPCA+",
-   "vencimento": "15/05/2029",
-   "taxa_compra": 7.46,
-   "taxa_venda": 7.58,
-   "pu_compra": 4004.99,
-   "var_taxa": 0.01,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "ipca",
-   "titulo": "Tesouro IPCA+",
-   "vencimento": "15/08/2032",
-   "taxa_compra": 7.82,
-   "taxa_venda": 7.94,
-   "pu_compra": 3110.97,
-   "var_taxa": 0.08,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "ipca",
-   "titulo": "Tesouro IPCA+",
-   "vencimento": "15/05/2035",
-   "taxa_compra": 7.86,
-   "taxa_venda": 7.98,
-   "pu_compra": 2526.53,
-   "var_taxa": 0.09,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "ipca",
-   "titulo": "Tesouro IPCA+",
-   "vencimento": "15/08/2040",
-   "taxa_compra": 7.54,
-   "taxa_venda": 7.66,
-   "pu_compra": 1770.71,
-   "var_taxa": 0.05,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "ipca",
-   "titulo": "Tesouro IPCA+",
-   "vencimento": "15/05/2045",
-   "taxa_compra": 7.55,
-   "taxa_venda": 7.67,
-   "pu_compra": 1255.17,
-   "var_taxa": 0.06,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "ipca",
-   "titulo": "Tesouro IPCA+",
-   "vencimento": "15/08/2050",
-   "taxa_compra": 7.56,
-   "taxa_venda": 7.68,
-   "pu_compra": 856.64,
-   "var_taxa": 0.05,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "ipca",
-   "titulo": "Tesouro IPCA+ com Juros Semestrais",
-   "vencimento": "15/08/2030",
-   "taxa_compra": 7.65,
-   "taxa_venda": 7.77,
-   "pu_compra": 4618.7,
-   "var_taxa": 0.01,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "ipca",
-   "titulo": "Tesouro IPCA+ com Juros Semestrais",
-   "vencimento": "15/08/2032",
-   "taxa_compra": 7.77,
-   "taxa_venda": 7.89,
-   "pu_compra": 4488.63,
-   "var_taxa": 0.07,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "ipca",
-   "titulo": "Tesouro IPCA+ com Juros Semestrais",
-   "vencimento": "15/05/2035",
-   "taxa_compra": 7.81,
-   "taxa_venda": 7.93,
-   "pu_compra": 4283.66,
-   "var_taxa": 0.08,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "ipca",
-   "titulo": "Tesouro IPCA+ com Juros Semestrais",
-   "vencimento": "15/05/2037",
-   "taxa_compra": 7.72,
-   "taxa_venda": 7.84,
-   "pu_compra": 4231.88,
-   "var_taxa": 0.06,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "ipca",
-   "titulo": "Tesouro IPCA+ com Juros Semestrais",
-   "vencimento": "15/08/2040",
-   "taxa_compra": 7.59,
-   "taxa_venda": 7.71,
-   "pu_compra": 4244.18,
-   "var_taxa": 0.05,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "ipca",
-   "titulo": "Tesouro IPCA+ com Juros Semestrais",
-   "vencimento": "15/05/2045",
-   "taxa_compra": 7.59,
-   "taxa_venda": 7.71,
-   "pu_compra": 4072.24,
-   "var_taxa": 0.06,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "ipca",
-   "titulo": "Tesouro IPCA+ com Juros Semestrais",
-   "vencimento": "15/08/2050",
-   "taxa_compra": 7.59,
-   "taxa_venda": 7.71,
-   "pu_compra": 4061.81,
-   "var_taxa": 0.05,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "ipca",
-   "titulo": "Tesouro IPCA+ com Juros Semestrais",
-   "vencimento": "15/05/2055",
-   "taxa_compra": 7.58,
-   "taxa_venda": 7.7,
-   "pu_compra": 3947.17,
-   "var_taxa": 0.05,
-   "data_base": "19/11/2026"
-  },
-  {
-   "grupo": "ipca",
-   "titulo": "Tesouro IPCA+ com Juros Semestrais",
-   "vencimento": "15/08/2060",
-   "taxa_compra": 7.58,
-   "taxa_venda": 7.7,
-   "pu_compra": 3977.74,
-   "var_taxa": 0.05,
-   "data_base": "19/11/2026"
-  }
- ],
+ "tesouro": [],
  "quotes": {
   "AZZA3": {
    "price": 14.63,
    "change": -7.29,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "SOJA3": {
    "price": 5.04,
    "change": -0.59,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "BOVA11": {
    "price": 163.6,
    "change": -0.49,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "HGLG11": {
    "price": 141.8,
    "change": -0.6,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "BTHF11": {
    "price": 7.96,
    "change": -0.5,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "XPML11": {
    "price": 81.99,
    "change": -4.44,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "IRIM11": {
    "price": 55.94,
    "change": -1.79,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "ALZR11": {
    "price": 9.4,
    "change": -0.42,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "KNCR11": {
    "price": 102.85,
    "change": -0.16,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "VNQ": {
    "price": 92.56,
    "change": -0.97,
    "currency": "USD",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "VGT": {
    "price": 97.64,
    "change": -7.0,
    "currency": "USD",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "VCLT": {
    "price": 69.92,
    "change": 0.75,
    "currency": "USD",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "IAU": {
    "price": 66.23,
    "change": -3.62,
    "currency": "USD",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "XEON.DE": {
    "price": 150.85,
    "change": -0.0,
    "currency": "EUR",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "CSH2.PA": {
    "price": 110.58,
    "change": 0.04,
    "currency": "EUR",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "IEGE.AS": {
    "price": 99.27,
    "change": 0.03,
    "currency": "EUR",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "CSPX.L": {
    "price": 762.4,
    "change": -3.39,
    "currency": "USD",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "VWRA.L": {
    "price": 174.96,
    "change": -3.3,
    "currency": "USD",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "EQQQ.L": {
    "price": 479.0,
    "change": -5.56,
    "currency": "GBP",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "LQDA.L": {
    "price": 6.137,
    "change": 0.18,
    "currency": "USD",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "BBAS3": {
    "price": 14.3,
    "change": 1.27,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "SAPR4": {
    "price": 6.62,
    "change": -0.45,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "FIQE3": {
    "price": 5.73,
    "change": -0.35,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "ITSA4": {
    "price": 13.17,
    "change": 0.15,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "JHSF3": {
    "price": 9.53,
    "change": -2.36,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "PRIO3": {
    "price": 60.2,
    "change": -2.7,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "WFCO34": {
    "price": 119.31,
    "change": -0.11,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "AUVP11": {
    "price": 119.11,
    "change": -0.74,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "DIVD11": {
    "price": 57.48,
    "change": -0.55,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "CPTS11": {
    "price": 6.54,
    "change": -0.76,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "VISC11": {
    "price": 96.0,
    "change": 0.79,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "RECR11": {
    "price": 65.48,
    "change": -1.37,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "HGRU11": {
    "price": 113.35,
    "change": -1.38,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "VILG11": {
    "price": 86.9,
    "change": -1.72,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "HGRE11": {
    "price": 111.02,
    "change": 0.23,
    "currency": "BRL",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "VOO": {
    "price": 635.54,
    "change": -3.41,
    "currency": "USD",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "GDX": {
    "price": 68.4,
    "change": -5.0,
    "currency": "USD",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   },
   "OGIG": {
    "price": 41.77,
    "change": -4.71,
    "currency": "USD",
-   "at": "22/11/2026 16:24 UTC"
+   "at": "23/11/2026 03:51 UTC"
   }
  }
 };
