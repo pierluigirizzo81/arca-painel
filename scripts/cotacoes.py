@@ -128,6 +128,8 @@ def tesouro():
     saida = []
     for _, r in atual.iterrows():
         t, venc = sem_acento(r[ct]), r[cv]
+        if "semestrais" in t:  # só títulos sem pagamento de juros semestrais
+            continue
         if "prefixado" in t:
             g = "prefixado"
         elif "ipca" in t:
@@ -149,6 +151,62 @@ def tesouro():
         })
     saida.sort(key=lambda x: (ORDEM_TESOURO[x["grupo"]], x["titulo"], x["vencimento"][6:] + x["vencimento"][3:5]))
     return saida
+
+
+HIST_ARQ = RAIZ / "docs" / "historico.js"
+HIST_VALIDADE_H = 20
+
+
+def serie(simbolo):
+    """5 anos de fechamentos: diário no último ano e a cada 5 pregões antes disso."""
+    t = yf.Ticker(simbolo)
+    h = t.history(period="5y", interval="1d")["Close"].dropna()
+    if h.empty:
+        raise ValueError("sem dados")
+    moeda = t.fast_info.get("currency") or "USD"
+    div = 100 if moeda == "GBp" else 1
+    moeda = "GBP" if moeda == "GBp" else moeda
+    pts = [[d.strftime("%Y-%m-%d"), round(float(v) / div, 4)] for d, v in h.items()]
+    return {"currency": moeda, "pts": pts[:-250:5] + pts[-250:]}
+
+
+def atualizar_historico(itens):
+    """Gera docs/historico.js no máximo uma vez por dia (ou quando entra ativo novo no radar)."""
+    pedidos = {it["ticker"]: it["simbolo"] for it in itens}
+    pedidos.update({"usd": "USDBRL=X", "eur": "EURBRL=X", "btc": "BTC-BRL"})
+    atual = {}
+    if HIST_ARQ.exists():
+        try:
+            txt = HIST_ARQ.read_text(encoding="utf-8")
+            atual = json.loads(txt[txt.index("{"):txt.rindex("}") + 1])
+        except Exception:
+            atual = {}
+    try:
+        idade = (datetime.now(timezone.utc) - datetime.fromisoformat(atual["iso"])).total_seconds() / 3600
+    except Exception:
+        idade = 9999
+    faltam = [k for k in pedidos if k not in atual.get("series", {}) and k != "btc"]
+    if idade < HIST_VALIDADE_H and not faltam:
+        print("Histórico: ainda válido, mantido.")
+        return
+    series = {}
+    for chave, simbolo in pedidos.items():
+        try:
+            series[chave] = serie(simbolo)
+        except Exception as e:
+            if chave == "btc":
+                try:
+                    series[chave] = serie("BTC-USD")  # em US$ quando o Yahoo não tem BTC-BRL
+                    continue
+                except Exception:
+                    pass
+            print(f"Histórico {chave}: falhou ({e})")
+    if not series:
+        print("Histórico: nada obtido; arquivo mantido.")
+        return
+    dados = {"iso": datetime.now(timezone.utc).isoformat(), "series": series}
+    HIST_ARQ.write_text("window.ARCA_HISTORICO = " + json.dumps(dados, ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")
+    print(f"Histórico gravado: {len(series)} séries")
 
 
 def main():
@@ -176,17 +234,31 @@ def main():
     except Exception as e:
         print(f"Tesouro Direto indisponível: {e}")
         td = []
-    destaques = []
+    por_id = {}
     for id_, rotulo, simbolo in DESTAQUES:
         try:
-            destaques.append({"id": id_, "rotulo": rotulo, **buscar(simbolo)})
+            por_id[id_] = {"id": id_, "rotulo": rotulo, **buscar(simbolo)}
         except Exception as e:
             print(f"{rotulo}: falhou ({e})")
+    if "btc" not in por_id and "usd" in por_id:  # Yahoo nem sempre tem BTC-BRL: calcula via BTC-USD x USD/BRL
+        try:
+            b, u = buscar("BTC-USD"), por_id["usd"]
+            por_id["btc"] = {"id": "btc", "rotulo": "Bitcoin (BTC/BRL)", "currency": "BRL",
+                             "price": round(b["price"] * u["price"], 2),
+                             "change": round(((1 + b["change"] / 100) * (1 + u["change"] / 100) - 1) * 100, 2)}
+            print("Bitcoin: calculado a partir de BTC-USD x USD/BRL")
+        except Exception as e:
+            print(f"Bitcoin: falhou ({e})")
+    destaques = [por_id[i] for i, _, _ in DESTAQUES if i in por_id]
     if not assets and not destaques and not td:
         raise SystemExit("Nenhuma cotação obtida; arquivo não foi alterado.")
     dados = {"generated": agora(), "destaques": destaques, "assets": assets, "tesouro": td, "quotes": quotes}
     SAIDA.write_text("window.ARCA_COTACOES = " + json.dumps(dados, ensure_ascii=False, indent=1) + ";\n", encoding="utf-8")
     print(f"Gravado: {SAIDA}")
+    try:
+        atualizar_historico(itens)
+    except Exception as e:
+        print(f"Histórico indisponível: {e}")
 
 
 if __name__ == "__main__":
