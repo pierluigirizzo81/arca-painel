@@ -104,6 +104,9 @@ def baixar_tesouro_csv():
     raise RuntimeError("CSV do Tesouro indisponível")
 
 
+ANOS_RENDA_2065 = (2065, 2084)  # RendA+ 2065: pagamentos a partir de 2065; vencimento em 15/12/2084
+
+
 def tesouro():
     """Prefixados, IPCA+ e RendA+ 2065, com taxas e PU de abertura do último dia disponível."""
     import pandas as pd
@@ -127,11 +130,12 @@ def tesouro():
         t = sem_acento(r[ct])
         if "semestrais" in t:
             return False
-        return "prefixado" in t or "ipca" in t or ("renda" in t and r[cv].year == 2065)
+        return "prefixado" in t or "ipca" in t or ("renda" in t and r[cv].year in ANOS_RENDA_2065)
 
     df = df[df.apply(relevante, axis=1)]
     if df.empty:
         raise ValueError("nenhum título relevante com taxa no arquivo")
+    print("Tesouro: RendA+ no arquivo (vencimentos) =", sorted({d.strftime("%d/%m/%Y") for d in df[df[ct].map(sem_acento).str.contains("renda")][cv]}))
     ultima = df[cb].max()
     atual = df[df[cb] == ultima]
     ant = df[df[cb] < ultima].sort_values(cb).groupby([ct, cv]).tail(1)
@@ -145,7 +149,7 @@ def tesouro():
             g = "prefixado"
         elif "ipca" in t:
             g = "ipca"
-        elif "renda" in t and venc.year == 2065:
+        elif "renda" in t and venc.year in ANOS_RENDA_2065:
             g = "renda"
         else:
             continue
