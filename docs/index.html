@@ -26,28 +26,13 @@ small.tag{color:#a9c9ee;border:1px solid #35577e;border-radius:20px;padding:4px 
 <div class="toolbar"><label class="kicker" for="owner">Carteira</label><select id="owner"><option value="all">Consolidado (último registro de cada titular)</option><option value="Piero">Piero</option><option value="Dri">Dri</option></select><button class="primary" id="chooseFile">Selecionar Excel ou CSV</button><input type="file" id="file" accept=".xlsx,.xls,.csv" style="display:none"><button class="primary" id="refresh">Atualizar visão</button><button id="export">Exportar snapshots CSV</button></div>
 <div id="dateWarning" class="note"></div>
 <div class="grid" id="kpis"></div>
-<div class="tabs"><button class="tab active" data-tab="overview">Visão geral</button><button class="tab" data-tab="history">Histórico</button><button class="tab" data-tab="details">Posições</button><button class="tab" data-tab="import">Importação</button><button class="tab" data-tab="market">Mercado</button><button class="tab" data-tab="quotes">Cotações</button></div>
+<div class="tabs"><button class="tab active" data-tab="overview">Visão geral</button><button class="tab" data-tab="history">Histórico</button><button class="tab" data-tab="details">Posições</button><button class="tab" data-tab="import">Importação</button><button class="tab" data-tab="market">Mercado</button></div>
 <section id="overview" class="section active"><div class="two"><div class="panel"><h3>Distribuição por classe</h3><div class="pie-wrap"><div id="pie" class="pie"></div><div id="pieLegend" class="legend"></div></div><div id="bars"></div></div><div class="panel"><h3>Resumo da carteira</h3><div id="summary"></div></div></div><div class="panel" style="margin-top:14px"><h3>Investimentos internacionais · visão sintética</h3><div id="intlSummary"></div><div id="intlSelection" class="hint" style="margin-top:12px">Clique em uma fatia do gráfico ou em uma legenda para detalhar o ativo por titular e plataforma.</div><p class="hint">Valores convertidos para BRL conforme os valores e cotações registrados na planilha. Quando a planilha agrupa os investimentos, o painel preserva esse agrupamento.</p><div class="divider"></div><h3 style="margin-top:18px">Composição da carteira internacional</h3><div class="pie-wrap"><div id="intlPie" class="pie"></div><div id="intlPieLegend" class="legend"></div></div></div></section>
 <section id="history" class="section"><div class="panel"><h3>Controle dos snapshots</h3><p class="muted">Os snapshots são preservados como registros históricos. Se algum for importado incorretamente, exclua-o e importe novamente o arquivo corrigido. As importações e exclusões ficam registradas na auditoria.</p><div id="historyTable"></div><p class="hint">Snapshots são fotografias do patrimônio em datas específicas. Variações entre datas não são tratadas automaticamente como rentabilidade. Registros marcados como teste ficam identificados e continuam fora de qualquer cálculo de rentabilidade.</p></div><div class="panel" style="margin-top:14px"><h3>Histórico de alterações</h3><div id="auditTable"></div></div></section>
 <section id="details" class="section"><div class="panel"><h3>Posições e instituições</h3><div id="detailTable"></div><p class="hint">Quando a planilha não identifica instituição ou ativo individual, o dado permanece agrupado e sinalizado como não detalhado.</p></div></section>
 <section id="import" class="section"><div class="panel"><h3>Prévia de importação</h3><p class="muted">Selecione uma planilha Excel (abas ARCA Piero/ARCA Dri) ou um CSV exportado pelo dashboard. Confira a prévia antes de incorporar os snapshots.</p><div id="importStatus" class="empty">Selecione sua planilha Excel ou CSV. Os dados serão analisados antes de qualquer alteração.</div><div id="preview"></div><div id="importActions" style="display:none;margin-top:14px"><button class="primary" id="confirmImport">Confirmar importação dos novos snapshots</button> <button id="cancelImport">Cancelar</button></div></div></section>
 
 <section id="market" class="section"><div class="panel"><h3>Câmbio e Bitcoin em reais</h3><div id="mkHighlights" class="mk-hl"></div><p class="muted" id="mkStamp"></p></div><div id="mkTables"></div></section>
-<section id="quotes" class="section">
- <div class="panel">
-  <h3>Central de cotações</h3>
-  <p class="muted">Atualização sob demanda. As cotações não alteram os snapshots patrimoniais; elas alimentam o radar e poderão ser vinculadas às posições detalhadas quando cadastrarmos os ativos individualmente.</p>
-  <div class="grid" style="grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
-   <div><label class="kicker" for="brapiKey">Chave gratuita brapi (B3)</label><input id="brapiKey" type="password" placeholder="Cole sua chave brapi" style="width:100%;padding:10px;border-radius:8px;background:#17243a;color:#edf3fb;border:1px solid #263650"><small class="hint">Necessária para a maioria das ações e FIIs. A chave fica salva somente neste navegador.</small></div>
-   <div><label class="kicker" for="cgKey">Chave CoinGecko Demo (opcional)</label><input id="cgKey" type="password" placeholder="Cole sua chave CoinGecko" style="width:100%;padding:10px;border-radius:8px;background:#17243a;color:#edf3fb;border:1px solid #263650"><small class="hint">A API pública pode funcionar sem chave, mas tem limites mais restritos.</small></div>
-  </div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="primary" id="saveQuoteKeys">Salvar chaves neste navegador</button><button class="primary" id="updateQuotes">Atualizar cotações</button><button id="addQuote">Adicionar ativo ao radar</button></div>
-  <div id="quoteStatus" class="note" style="margin-top:12px">Nenhuma consulta executada nesta sessão.</div>
- </div>
- <div class="panel" style="margin-top:14px"><h3>Radar de mercado</h3><div id="quoteTable"><p class="muted">Clique em “Atualizar cotações” para consultar as fontes disponíveis.</p></div></div>
- <div class="panel" style="margin-top:14px"><h3>ETFs irlandeses para acompanhamento</h3><p class="muted">Lista inicial de referência. O ticker varia conforme a bolsa e a moeda da listagem; ISIN identifica o fundo/compartimento. Os exemplos abaixo são fundos domiciliados na Irlanda.</p><div id="irishEtfs"></div></div>
- <p class="hint">Limitações importantes: brapi gratuita tem limite mensal e atualização não em tempo real; Frankfurter fornece taxas de referência diárias; CoinGecko tem limites por plano. A consulta de ações/ETFs internacionais usa endpoint não oficial do Yahoo Finance e pode falhar por bloqueio CORS ou mudanças do fornecedor. Quando isso ocorrer, a solução robusta é um pequeno backend/proxy — sem expor chaves no navegador.</p>
-</section>
 
 <p class="hint">Protótipo local: importação Excel/CSV com prévia e detecção de duplicidades. Os dados importados ficam salvos neste navegador; ainda não há servidor, login nem sincronização entre dispositivos. Cotações de ETFs vêm do arquivo cotacoes.js, gerado pelo script cotacoes.py.</p>
 </main>
@@ -290,83 +275,6 @@ document.querySelector('#confirmImport').onclick=()=>{
 };
 document.querySelector('#cancelImport').onclick=()=>{pendingImport=[];document.querySelector('#preview').innerHTML='';document.querySelector('#importActions').style.display='none';document.querySelector('#importStatus').textContent='Importação cancelada. Nenhum dado foi alterado.';};
 render();
-
-// --- Central de cotações v5.2 ---
-const quoteSeed = [
- {id:'PETR4',name:'Petrobras PN',type:'B3',symbol:'PETR4',currency:'BRL',provider:'brapi'},
- {id:'VALE3',name:'Vale ON',type:'B3',symbol:'VALE3',currency:'BRL',provider:'brapi'},
- {id:'ITUB4',name:'Itaú Unibanco PN',type:'B3',symbol:'ITUB4',currency:'BRL',provider:'brapi'},
- {id:'HGLG11',name:'CSHG Logística FII',type:'FII',symbol:'HGLG11',currency:'BRL',provider:'brapi'},
- {id:'BTC',name:'Bitcoin',type:'Cripto',symbol:'bitcoin',currency:'USD',provider:'coingecko'},
- {id:'USDC',name:'USD Coin',type:'Cripto',symbol:'usd-coin',currency:'USD',provider:'coingecko'},
- {id:'SPY',name:'SPDR S&P 500 ETF (EUA)',type:'ETF EUA',symbol:'SPY',currency:'USD',provider:'yahoo'},
- {id:'CSPX.L',name:'iShares Core S&P 500 UCITS (Irlanda)',type:'ETF Irlanda',symbol:'CSPX.L',currency:'USD',provider:'yahoo'},
- {id:'VUAA.L',name:'Vanguard S&P 500 UCITS (Irlanda)',type:'ETF Irlanda',symbol:'VUAA.L',currency:'USD',provider:'yahoo'},
- {id:'VWRA.L',name:'Vanguard FTSE All-World UCITS (Irlanda)',type:'ETF Irlanda',symbol:'VWRA.L',currency:'USD',provider:'yahoo'},
- {id:'EIMI.L',name:'iShares Core MSCI EM IMI UCITS (Irlanda)',type:'ETF Irlanda',symbol:'EIMI.L',currency:'USD',provider:'yahoo'}
-];
-let quoteAssets=[]; try{quoteAssets=JSON.parse(localStorage.getItem('arca_quote_assets_v1')||'null')||quoteSeed;}catch(e){quoteAssets=quoteSeed;}
-try{if(!localStorage.getItem('arca_fx_seed_v1')){[{id:'USD/BRL',name:'Dólar (USD/BRL)',type:'Câmbio',symbol:'USD/BRL',currency:'BRL',provider:'fx'},{id:'EUR/BRL',name:'Euro (EUR/BRL)',type:'Câmbio',symbol:'EUR/BRL',currency:'BRL',provider:'fx'},{id:'EUR/USD',name:'Euro (EUR/USD)',type:'Câmbio',symbol:'EUR/USD',currency:'USD',provider:'fx'}].forEach(s=>{if(!quoteAssets.some(a=>a.id===s.id))quoteAssets.unshift(s);});localStorage.setItem('arca_quote_assets_v1',JSON.stringify(quoteAssets));localStorage.setItem('arca_fx_seed_v1','1');}}catch(e){}
-let quoteResults={}; try{quoteResults=JSON.parse(localStorage.getItem('arca_quote_results_v1')||'{}')||{};}catch(e){quoteResults={};}
-const savedBrapi=localStorage.getItem('arca_brapi_key_v1')||''; const savedCg=localStorage.getItem('arca_cg_key_v1')||'';
-document.querySelector('#brapiKey').value=savedBrapi; document.querySelector('#cgKey').value=savedCg;
-const fmtQuote=(v,c)=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:c||'USD',maximumFractionDigits:(c==='BTC'?8:4)}).format(v);
-function renderQuoteTable(){
- const rows=quoteAssets.map(a=>{const r=quoteResults[a.id]||{};const has=Number.isFinite(r.price);return `<tr><td><b>${a.name}</b><div class="hint">${a.id} · ${a.type}</div></td><td>${a.symbol}</td><td class="num">${has?fmtQuote(r.price,r.currency||a.currency):'—'}</td><td class="num" style="color:${r.change>=0?'#72d6ae':'#e4869a'}">${Number.isFinite(r.change)?(r.change>0?'+':'')+r.change.toFixed(2)+'%':'—'}</td><td>${r.source||a.provider}</td><td>${r.at||'Não consultado'}</td><td>${r.error?'<span style="color:#f3c778">'+(has?'Cotação anterior · ':'')+r.error+'</span>':(has?'<span class="good">OK</span>':'')}</td><td><button data-qdel="${a.id}" style="padding:5px 8px">Remover</button></td></tr>`}).join('');
- document.querySelector('#quoteTable').innerHTML=`<div style="overflow-x:auto"><table><thead><tr><th>Ativo</th><th>Ticker / ID</th><th class="num">Último preço</th><th class="num">Variação</th><th>Fonte</th><th>Atualizado</th><th>Status</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`;
- document.querySelectorAll('[data-qdel]').forEach(b=>b.onclick=()=>{quoteAssets=quoteAssets.filter(a=>a.id!==b.dataset.qdel);localStorage.setItem('arca_quote_assets_v1',JSON.stringify(quoteAssets));renderQuoteTable();});
-}
-document.querySelector('#irishEtfs').innerHTML=`<table><thead><tr><th>Fundo</th><th>ISIN</th><th>Listagem de referência</th><th>Política</th><th>Domicílio</th></tr></thead><tbody><tr><td>Vanguard S&P 500 UCITS ETF</td><td>IE00BFMXXD54</td><td>VUAA.L · Londres · USD</td><td>Acumulação</td><td>Irlanda</td></tr><tr><td>iShares Core S&P 500 UCITS ETF</td><td>IE00B5BMR087</td><td>CSPX.L · Londres · USD</td><td>Acumulação</td><td>Irlanda</td></tr><tr><td>Vanguard FTSE All-World UCITS ETF</td><td>IE00BK5BQT80</td><td>VWRA.L · Londres · USD</td><td>Acumulação</td><td>Irlanda</td></tr><tr><td>iShares Core MSCI EM IMI UCITS ETF</td><td>IE00BKM4GZ66</td><td>EIMI.L · Londres · USD</td><td>Acumulação</td><td>Irlanda</td></tr></tbody></table>`;
-renderQuoteTable();
-document.querySelector('#saveQuoteKeys').onclick=()=>{localStorage.setItem('arca_brapi_key_v1',document.querySelector('#brapiKey').value.trim());localStorage.setItem('arca_cg_key_v1',document.querySelector('#cgKey').value.trim());document.querySelector('#quoteStatus').textContent='Chaves salvas neste navegador. Não compartilhe este arquivo com as chaves preenchidas.';};
-document.querySelector('#addQuote').onclick=()=>{const symbol=prompt('Ticker/símbolo (ex.: BOVA11, IVVB11, VUAA.L, VWCE.DE):');if(!symbol)return;const type=prompt('Classe: B3, FII, ETF EUA, ETF Irlanda ou outro','ETF Irlanda')||'Outro';const name=prompt('Nome para exibição',symbol)||symbol;const currency=prompt('Moeda da cotação (BRL, USD, EUR, GBP)','USD')||'USD';const provider=prompt('Fonte: brapi, yahoo ou coingecko','yahoo')||'yahoo';const item={id:symbol.toUpperCase(),name,type,symbol,currency,provider};if(quoteAssets.some(a=>a.id===item.id)){alert('Este símbolo já está no radar.');return;}quoteAssets.push(item);localStorage.setItem('arca_quote_assets_v1',JSON.stringify(quoteAssets));renderQuoteTable();};
-async function updateQuoteAsset(a){
- const at=new Date().toLocaleString('pt-BR');
- if(a.provider==='coingecko'){
-  const key=document.querySelector('#cgKey').value.trim();const url=`https://api.coingecko.com/api/v3/simple/price?ids=${encodeURIComponent(a.symbol)}&vs_currencies=usd&include_24hr_change=true${key?'&x_cg_demo_api_key='+encodeURIComponent(key):''}`;
-  const res=await fetch(url);if(!res.ok)throw new Error('HTTP '+res.status);const j=await res.json();const q=j[a.symbol];if(!q)throw new Error('Ativo não encontrado');return {price:q.usd,change:q.usd_24h_change,currency:'USD',source:'CoinGecko',at};
- }
- if(a.provider==='fx'){
-  const pair=a.symbol.split('/');const url=`https://api.frankfurter.dev/v2/rates?base=${pair[0]}&quotes=${pair[1]}`;const res=await fetch(url);if(!res.ok)throw new Error('HTTP '+res.status);const j=await res.json();const q=Array.isArray(j)?j[0]:j;return {price:Number(q.rate),change:NaN,currency:pair[1],source:'Frankfurter · referência diária',at:q.date||at};
- }
- if(a.provider==='brapi') throw new Error('Consulta B3 processada em lote');
- if(a.provider==='yahoo'){const base=window.ARCA_COTACOES||{};const q=(base.quotes||{})[a.symbol];if(!q||!Number.isFinite(q.price))throw new Error('Sem cotação em cotacoes.js. Rode "python cotacoes.py" e recarregue a página.');return {price:q.price,change:q.change,currency:q.currency||a.currency,source:'Yahoo Finance · via cotacoes.py',at:q.at||base.generated||at};}
- throw new Error('Fonte não configurada');
-}
-async function updateBrapiBatch(assets){
- if(!assets.length)return;
- const key=document.querySelector('#brapiKey').value.trim();
- const symbols=assets.map(a=>a.symbol).join(',');
- const url=`https://brapi.dev/api/quote/${encodeURIComponent(symbols)}${key?'?token='+encodeURIComponent(key):''}`;
- const res=await fetch(url);
- if(!res.ok)throw new Error('HTTP '+res.status);
- const j=await res.json();
- const results=j.results||[];
- for(const a of assets){
-  const q=results.find(x=>String(x.symbol||'').toUpperCase()===a.symbol.toUpperCase());
-  if(q&&Number.isFinite(Number(q.regularMarketPrice))){
-   quoteResults[a.id]={price:Number(q.regularMarketPrice),change:Number(q.regularMarketChangePercent),currency:'BRL',source:'brapi · consulta em lote',at:new Date().toLocaleString('pt-BR')};
-  }else{
-   const previous=quoteResults[a.id]||{};
-   quoteResults[a.id]={...previous,error:j.message||'Ativo sem cotação nesta consulta',source:'brapi',at:previous.at||'Falha na consulta'};
-  }
- }
-}
-document.querySelector('#updateQuotes').onclick=async()=>{
- const btn=document.querySelector('#updateQuotes'),status=document.querySelector('#quoteStatus');btn.disabled=true;status.textContent='Consultando fontes gratuitas…';
- const b3=quoteAssets.filter(a=>a.provider==='brapi');
- try{await updateBrapiBatch(b3);}catch(e){for(const a of b3){const previous=quoteResults[a.id]||{};quoteResults[a.id]={...previous,error:e.message,source:'brapi',at:previous.at||'Falha na consulta'};}}
- const other=quoteAssets.filter(a=>a.provider!=='brapi');
- for(const a of other){
-  try{quoteResults[a.id]=await updateQuoteAsset(a);}
-  catch(e){const previous=quoteResults[a.id]||{};quoteResults[a.id]={...previous,error:e.message,source:previous.source||a.provider,at:previous.at||'Falha na consulta'};}
- }
- try{localStorage.setItem('arca_quote_results_v1',JSON.stringify(quoteResults));}catch(e){}
- renderQuoteTable();
- const ok=Object.values(quoteResults).filter(x=>Number.isFinite(x.price)).length;
- status.textContent=`Consulta concluída: ${ok} ativo(s) têm cotação válida armazenada. B3 consultada em uma única chamada para reduzir HTTP 429. ETFs e demais ativos do radar ficam na aba Mercado.`;
- btn.disabled=false;
-};
 
 </script><script>
 (function(){
