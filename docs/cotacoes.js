@@ -1,26 +1,26 @@
 window.ARCA_COTACOES = {
- "generated": "25/11/2026 16:57 UTC",
+ "generated": "25/11/2026 17:42 UTC",
  "destaques": [
   {
    "id": "usd",
    "rotulo": "Dólar (USD/BRL)",
-   "price": 5.8295,
-   "change": -1.67,
+   "price": 5.8172,
+   "change": -1.87,
    "currency": "BRL"
   },
   {
    "id": "eur",
    "rotulo": "Euro (EUR/BRL)",
-   "price": 6.4002,
-   "change": -0.92,
+   "price": 6.3893,
+   "change": -1.09,
    "currency": "BRL"
   },
   {
    "id": "btc",
    "rotulo": "Bitcoin (BTC/BRL)",
    "currency": "BRL",
-   "price": 340578.34,
-   "change": -3.85
+   "price": 347962.64,
+   "change": -1.76
   }
  ],
  "assets": [
@@ -28,11 +28,11 @@ window.ARCA_COTACOES = {
    "tipo": "acao",
    "ticker": "AZZA3",
    "nome": "Azzas 2154",
-   "price": 14.91,
-   "change": 5.15,
+   "price": 14.75,
+   "change": 4.02,
    "currency": "BRL",
    "pvp": 0.36,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "acao",
@@ -42,97 +42,97 @@ window.ARCA_COTACOES = {
    "change": 2.05,
    "currency": "BRL",
    "pvp": 0.51,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_br",
    "ticker": "BOVA11",
    "nome": "iShares Ibovespa",
-   "price": 162.29,
-   "change": 0.5,
+   "price": 163.45,
+   "change": 1.21,
    "currency": "BRL",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "fii",
    "ticker": "HGLG11",
    "nome": "CSHG Logística",
-   "price": 142.74,
-   "change": 1.38,
+   "price": 142.88,
+   "change": 1.48,
    "currency": "BRL",
    "pvp": 0.85,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "fii",
    "ticker": "BTHF11",
    "nome": "BTHF11",
-   "price": 7.98,
-   "change": 1.27,
+   "price": 7.95,
+   "change": 0.89,
    "currency": "BRL",
    "pvp": 0.85,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "fii",
    "ticker": "XPML11",
    "nome": "XP Malls",
-   "price": 85.41,
-   "change": 1.98,
+   "price": 85.78,
+   "change": 2.42,
    "currency": "BRL",
    "pvp": 0.8,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "fii",
    "ticker": "IRIM11",
    "nome": "Iridium Recebíveis Imobiliários",
-   "price": 56.18,
-   "change": 0.86,
+   "price": 56.58,
+   "change": 1.58,
    "currency": "BRL",
    "pvp": 0.68,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "fii",
    "ticker": "ALZR11",
    "nome": "Alianza Trust Renda Imobiliária",
-   "price": 9.27,
-   "change": -0.22,
+   "price": 9.32,
+   "change": 0.32,
    "currency": "BRL",
    "pvp": 0.86,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "fii",
    "ticker": "KNCR11",
    "nome": "Kinea Rendimentos Imobiliários",
-   "price": 103.04,
-   "change": 0.62,
+   "price": 103.05,
+   "change": 0.63,
    "currency": "BRL",
    "pvp": 1.0,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_eua",
    "ticker": "VNQ",
    "nome": "Vanguard Real Estate",
-   "price": 95.05,
-   "change": 0.28,
+   "price": 95.76,
+   "change": 1.03,
    "currency": "USD",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_eua",
    "ticker": "VGT",
    "nome": "Vanguard Information Technology",
-   "price": 98.54,
-   "change": -4.63,
+   "price": 100.15,
+   "change": -3.07,
    "currency": "USD",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_eua",
@@ -142,17 +142,17 @@ window.ARCA_COTACOES = {
    "change": 0.8,
    "currency": "USD",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_eua",
    "ticker": "IAU",
    "nome": "iShares Gold Trust",
-   "price": 64.925,
-   "change": -2.7,
+   "price": 65.88,
+   "change": -1.27,
    "currency": "USD",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_irlanda",
@@ -162,7 +162,7 @@ window.ARCA_COTACOES = {
    "change": 0.0,
    "currency": "EUR",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_irlanda",
@@ -172,17 +172,17 @@ window.ARCA_COTACOES = {
    "change": 0.02,
    "currency": "EUR",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_irlanda",
    "ticker": "IEGE.AS",
    "nome": "iShares € Govt Bond 0-1yr UCITS",
-   "price": 99.3,
-   "change": 0.03,
+   "price": 99.29,
+   "change": 0.02,
    "currency": "EUR",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_irlanda",
@@ -192,7 +192,7 @@ window.ARCA_COTACOES = {
    "change": -2.21,
    "currency": "USD",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_irlanda",
@@ -202,7 +202,7 @@ window.ARCA_COTACOES = {
    "change": -2.0,
    "currency": "USD",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_irlanda",
@@ -212,7 +212,7 @@ window.ARCA_COTACOES = {
    "change": -3.42,
    "currency": "GBP",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_irlanda",
@@ -222,27 +222,27 @@ window.ARCA_COTACOES = {
    "change": 0.54,
    "currency": "USD",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "acao",
    "ticker": "BBAS3",
    "nome": "Banco do Brasil ON",
-   "price": 14.46,
-   "change": 1.97,
+   "price": 14.59,
+   "change": 2.89,
    "currency": "BRL",
    "pvp": 0.45,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "acao",
    "ticker": "SAPR4",
    "nome": "Sanepar PN",
-   "price": 6.69,
-   "change": 0.6,
+   "price": 6.71,
+   "change": 0.9,
    "currency": "BRL",
    "pvp": 0.81,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "acao",
@@ -252,157 +252,157 @@ window.ARCA_COTACOES = {
    "change": 0.0,
    "currency": "BRL",
    "pvp": 2.17,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "acao",
    "ticker": "ITSA4",
    "nome": "Itaúsa PN",
-   "price": 12.95,
-   "change": 0.15,
+   "price": 13.04,
+   "change": 0.85,
    "currency": "BRL",
    "pvp": 1.48,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "acao",
    "ticker": "JHSF3",
    "nome": "JHSF Participações",
-   "price": 9.63,
-   "change": -0.52,
+   "price": 9.7,
+   "change": 0.21,
    "currency": "BRL",
    "pvp": 0.85,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "acao",
    "ticker": "PRIO3",
    "nome": "PRIO ON",
-   "price": 60.33,
-   "change": 1.22,
+   "price": 60.64,
+   "change": 1.74,
    "currency": "BRL",
    "pvp": 1.69,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "acao",
    "ticker": "WFCO34",
    "nome": "Wells Fargo (BDR)",
-   "price": 116.65,
-   "change": -2.46,
+   "price": 116.45,
+   "change": -2.63,
    "currency": "BRL",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_br",
    "ticker": "AUVP11",
    "nome": "BTG Teva AUVP Ações Fundamentos",
-   "price": 117.31,
-   "change": 0.29,
+   "price": 118.09,
+   "change": 0.96,
    "currency": "BRL",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_br",
    "ticker": "DIVD11",
    "nome": "It Now IDIV Dividendos",
-   "price": 57.05,
-   "change": 0.51,
+   "price": 57.39,
+   "change": 1.11,
    "currency": "BRL",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "fii",
    "ticker": "CPTS11",
    "nome": "Capitânia Securities II",
-   "price": 6.52,
-   "change": 0.31,
+   "price": 6.55,
+   "change": 0.77,
    "currency": "BRL",
    "pvp": 0.77,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "fii",
    "ticker": "VISC11",
    "nome": "Vinci Shopping Centers",
-   "price": 96.66,
-   "change": 1.82,
+   "price": 97.02,
+   "change": 2.2,
    "currency": "BRL",
    "pvp": 0.81,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "fii",
    "ticker": "RECR11",
    "nome": "REC Recebíveis Imobiliários",
-   "price": 66.48,
-   "change": 2.62,
+   "price": 66.75,
+   "change": 3.04,
    "currency": "BRL",
    "pvp": 0.74,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "fii",
    "ticker": "HGRU11",
    "nome": "CSHG Renda Urbana",
-   "price": 113.79,
-   "change": 0.58,
+   "price": 114.27,
+   "change": 1.01,
    "currency": "BRL",
    "pvp": 0.87,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "fii",
    "ticker": "VILG11",
    "nome": "Vinci Logística",
-   "price": 88.29,
-   "change": 0.46,
+   "price": 88.55,
+   "change": 0.75,
    "currency": "BRL",
    "pvp": 0.81,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "fii",
    "ticker": "HGRE11",
    "nome": "CSHG Real Estate",
-   "price": 112.07,
-   "change": 1.79,
+   "price": 112.62,
+   "change": 2.29,
    "currency": "BRL",
    "pvp": 0.73,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_eua",
    "ticker": "VOO",
    "nome": "Vanguard S&P 500",
-   "price": 643.585,
-   "change": -2.59,
+   "price": 651.9,
+   "change": -1.33,
    "currency": "USD",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_eua",
    "ticker": "GDX",
    "nome": "VanEck Gold Miners",
-   "price": 69.757,
-   "change": -2.26,
+   "price": 71.7,
+   "change": 0.46,
    "currency": "USD",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_eua",
    "ticker": "OGIG",
    "nome": "Global Internet Giants",
-   "price": 42.0802,
-   "change": -3.94,
+   "price": 43.0164,
+   "change": -1.8,
    "currency": "USD",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_irlanda",
@@ -412,7 +412,7 @@ window.ARCA_COTACOES = {
    "change": -1.95,
    "currency": "EUR",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_irlanda",
@@ -422,7 +422,7 @@ window.ARCA_COTACOES = {
    "change": -3.52,
    "currency": "EUR",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   {
    "tipo": "etf_irlanda",
@@ -432,7 +432,7 @@ window.ARCA_COTACOES = {
    "change": -1.83,
    "currency": "EUR",
    "pvp": null,
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   }
  ],
  "tesouro": [
@@ -559,250 +559,250 @@ window.ARCA_COTACOES = {
  ],
  "quotes": {
   "AZZA3": {
-   "price": 14.91,
-   "change": 5.15,
+   "price": 14.75,
+   "change": 4.02,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "SOJA3": {
    "price": 4.98,
    "change": 2.05,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "BOVA11": {
-   "price": 162.29,
-   "change": 0.5,
+   "price": 163.45,
+   "change": 1.21,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "HGLG11": {
-   "price": 142.74,
-   "change": 1.38,
+   "price": 142.88,
+   "change": 1.48,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "BTHF11": {
-   "price": 7.98,
-   "change": 1.27,
+   "price": 7.95,
+   "change": 0.89,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "XPML11": {
-   "price": 85.41,
-   "change": 1.98,
+   "price": 85.78,
+   "change": 2.42,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "IRIM11": {
-   "price": 56.18,
-   "change": 0.86,
+   "price": 56.58,
+   "change": 1.58,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "ALZR11": {
-   "price": 9.27,
-   "change": -0.22,
+   "price": 9.32,
+   "change": 0.32,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "KNCR11": {
-   "price": 103.04,
-   "change": 0.62,
+   "price": 103.05,
+   "change": 0.63,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "VNQ": {
-   "price": 95.05,
-   "change": 0.28,
+   "price": 95.76,
+   "change": 1.03,
    "currency": "USD",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "VGT": {
-   "price": 98.54,
-   "change": -4.63,
+   "price": 100.15,
+   "change": -3.07,
    "currency": "USD",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "VCLT": {
    "price": 70.65,
    "change": 0.8,
    "currency": "USD",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "IAU": {
-   "price": 64.925,
-   "change": -2.7,
+   "price": 65.88,
+   "change": -1.27,
    "currency": "USD",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "XEON.DE": {
    "price": 150.884,
    "change": 0.0,
    "currency": "EUR",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "CSH2.PA": {
    "price": 110.62,
    "change": 0.02,
    "currency": "EUR",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "IEGE.AS": {
-   "price": 99.3,
-   "change": 0.03,
+   "price": 99.29,
+   "change": 0.02,
    "currency": "EUR",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "CSPX.L": {
    "price": 756.28,
    "change": -2.21,
    "currency": "USD",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "VWRA.L": {
    "price": 174.0,
    "change": -2.0,
    "currency": "USD",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "EQQQ.L": {
    "price": 468.94,
    "change": -3.42,
    "currency": "GBP",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "LQDA.L": {
    "price": 6.189,
    "change": 0.54,
    "currency": "USD",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "BBAS3": {
-   "price": 14.46,
-   "change": 1.97,
+   "price": 14.59,
+   "change": 2.89,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "SAPR4": {
-   "price": 6.69,
-   "change": 0.6,
+   "price": 6.71,
+   "change": 0.9,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "FIQE3": {
    "price": 6.8,
    "change": 0.0,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "ITSA4": {
-   "price": 12.95,
-   "change": 0.15,
+   "price": 13.04,
+   "change": 0.85,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "JHSF3": {
-   "price": 9.63,
-   "change": -0.52,
+   "price": 9.7,
+   "change": 0.21,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "PRIO3": {
-   "price": 60.33,
-   "change": 1.22,
+   "price": 60.64,
+   "change": 1.74,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "WFCO34": {
-   "price": 116.65,
-   "change": -2.46,
+   "price": 116.45,
+   "change": -2.63,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "AUVP11": {
-   "price": 117.31,
-   "change": 0.29,
+   "price": 118.09,
+   "change": 0.96,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "DIVD11": {
-   "price": 57.05,
-   "change": 0.51,
+   "price": 57.39,
+   "change": 1.11,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "CPTS11": {
-   "price": 6.52,
-   "change": 0.31,
+   "price": 6.55,
+   "change": 0.77,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "VISC11": {
-   "price": 96.66,
-   "change": 1.82,
+   "price": 97.02,
+   "change": 2.2,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "RECR11": {
-   "price": 66.48,
-   "change": 2.62,
+   "price": 66.75,
+   "change": 3.04,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "HGRU11": {
-   "price": 113.79,
-   "change": 0.58,
+   "price": 114.27,
+   "change": 1.01,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "VILG11": {
-   "price": 88.29,
-   "change": 0.46,
+   "price": 88.55,
+   "change": 0.75,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "HGRE11": {
-   "price": 112.07,
-   "change": 1.79,
+   "price": 112.62,
+   "change": 2.29,
    "currency": "BRL",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "VOO": {
-   "price": 643.585,
-   "change": -2.59,
+   "price": 651.9,
+   "change": -1.33,
    "currency": "USD",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "GDX": {
-   "price": 69.757,
-   "change": -2.26,
+   "price": 71.7,
+   "change": 0.46,
    "currency": "USD",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "OGIG": {
-   "price": 42.0802,
-   "change": -3.94,
+   "price": 43.0164,
+   "change": -1.8,
    "currency": "USD",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "VWCE.DE": {
    "price": 158.72,
    "change": -1.95,
    "currency": "EUR",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "SXRV.DE": {
    "price": 1314.6,
    "change": -3.52,
    "currency": "EUR",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   },
   "CSX5.L": {
    "price": 230.7,
    "change": -1.83,
    "currency": "EUR",
-   "at": "25/11/2026 16:54 UTC"
+   "at": "25/11/2026 17:40 UTC"
   }
  }
 };
